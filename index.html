@@ -59,6 +59,7 @@ header p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
 .btn.ghost{background:transparent;color:var(--accent);border-color:#d9c79f}
 .btn.ghost:hover{background:var(--accent-soft)}
 .btn svg{width:15px;height:15px}
+button.btn{cursor:pointer;font-family:var(--f-body)}
 details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
 summary{cursor:pointer;padding:13px 16px;font-weight:600;font-size:.92rem;list-style:none;display:flex;align-items:center;gap:10px}
 summary::-webkit-details-marker{display:none}
@@ -133,7 +134,7 @@ footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:v
       <div><h3>Recepção</h3><p class="sub">Para as secretárias</p></div></div>
     <p class="d">Gera e envia o link da pré-consulta, acompanha quem já respondeu e lembra quem está atrasado. Não mostra nenhuma resposta clínica.</p>
     <div class="tags"><span class="tag t-free">Sem login Google</span><span class="tag t-pin">Senha da recepção</span></div>
-    <div class="btns"><a class="btn" href="https://adrianofabri.github.io/preconsulta/recepcao/" target="_blank" rel="noopener">Abrir Recepção</a></div>
+    <div class="btns"><a class="btn" href="https://adrianofabri.github.io/preconsulta/recepcao/" target="_blank" rel="noopener">Abrir Recepção</a><button class="btn ghost" id="cp-recep" type="button">Copiar link</button><a class="btn ghost" id="wa-recep" target="_blank" rel="noopener">Enviar pelo WhatsApp</a></div>
   </article>
   <article class="card">
     <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg></div>
@@ -222,6 +223,15 @@ footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:v
       else{var v=[].map.call(document.querySelectorAll("#aj-dias input:checked"),function(i){return i.value});if(!v.length){document.querySelector(".aj-nota").textContent="Escolha pelo menos um dia.";return}dias="nos dias "+(v.length>1?v.slice(0,-1).join(", ")+" e "+v[v.length-1]:v[0])}
       msg="Quero alterar a tarefa agendada \""+nome+"\" que roda no Mac mini: passar a rodar "+dias+" às "+hr.replace(":","h")+" (horário de Cuiabá). Depois, atualize também o horário na Central de Aplicativos (adrianofabri.github.io)."}
     window.open("https://claude.ai/new?q="+encodeURIComponent(msg),"_blank","noopener");box.hidden=true};
+})();
+(function(){
+  var url="https://adrianofabri.github.io/preconsulta/recepcao/",b=document.getElementById("cp-recep");
+  document.getElementById("wa-recep").href="https://wa.me/?text="+encodeURIComponent("Link da Recepção (pré-consulta): "+url);
+  b.onclick=function(){
+    var ok=function(){b.textContent="Link copiado ✓";setTimeout(function(){b.textContent="Copiar link"},1800)};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(ok,function(){fb()})}else fb();
+    function fb(){var t=document.createElement("textarea");t.value=url;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();try{document.execCommand("copy");ok()}catch(e){}t.remove()}
+  };
 })();
 (function(){
   var d=new Date(),h=d.getHours();
