@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Protocolo Tirzepatida 2.0</title>
+<style>body{margin:0;background:#f6f3ee;color:#6f675b;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh}#ld{text-align:center;font-size:15px}#ld a{color:#8a6624}</style>
+</head>
+<body>
+<div id="ld">Carregando Protocolo Tirzepatida 2.0…</div>
+<script>
+(function () {
+  var U = "https://script.google.com/macros/s/AKfycbysUZN2sU9KgTOyk_g169aA72iSSqm6balCCKX4Ne28vzFWlhUyjXqUH4yc6Wv7qecf/exec?src=k7Qm2xV9pL4tR8wZ&f=Index";
+  function erro() { document.getElementById("ld").innerHTML = 'Não foi possível carregar o aplicativo.<br><a href="">Tentar de novo</a>'; }
+  fetch(U, { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(); return r.text(); }).then(function (h) {
+    if (h.indexOf("<html") < 0) throw new Error();
+    h = h.replace(/<meta charset="utf-8"\s*\/?>/i, function (m) { return m + '\n<meta name="robots" content="noindex,nofollow">\n<script src="api.js?v=1"><\/script>'; });
+    h = h.replace('<a id="tab-calc" target="_top"', '<a id="tab-calc" href="calculadora.html" target="_top"')
+         .replace('appUrlG=""', 'appUrlG="calculadora.html"')
+         .replace('<a id="voltarApp" target="_top">', '<a id="voltarApp" href="./" target="_top">');
+    document.open(); document.write(h); document.close();
+  }).catch(erro);
+})();
+</script>
+</body>
+</html>
