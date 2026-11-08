@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#f6f3ee">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Central AD">
+<title>Central de Aplicativos · Dr. Adriano Fabri Domingues</title>
+<link rel="icon" href="https://adrianofabri.github.io/preconsulta/logo-redonda.png">
+<link rel="apple-touch-icon" href="https://adrianofabri.github.io/preconsulta/logo-redonda.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#f6f3ee;--surface:#fff;--surface2:#fbf8f3;--ink:#221d16;--muted:#6f675b;--line:#e6dfd3;--accent:#8a6624;--accent-soft:#f4ecdc;--gold:#b8913f;
+--ok:#1f7a4d;--ok-soft:#e3f3ea;--info:#2d5f8a;--info-soft:#e6eef6;--warn:#9a6200;--warn-soft:#fbf0d9;
+--f-display:"Marcellus",Georgia,serif;--f-body:"Instrument Sans",system-ui,sans-serif;--r:16px}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
+header{display:flex;align-items:center;gap:18px;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:26px}
+header img{width:72px;height:72px;border-radius:50%;flex:none}
+header h1{font:400 1.75rem/1.15 var(--f-display);margin:0;color:var(--ink)}
+header p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
+.hoje{margin-left:auto;text-align:right;color:var(--muted);font-size:.82rem;white-space:nowrap}
+.hoje b{display:block;font:400 1.05rem var(--f-display);color:var(--accent)}
+.fluxo{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:26px}
+.fluxo h2{font:600 .72rem/1 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:s}
+.step{position:relative;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px 12px 10px 42px;font-size:.86rem;color:var(--muted)}
+.step b{display:block;color:var(--ink);font-size:.9rem}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:11px;top:11px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font:600 .75rem/22px var(--f-body);text-align:center}
+.sec{margin:30px 0 12px;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
+.sec h2{font:400 1.25rem var(--f-display);margin:0}
+.sec span{color:var(--muted);font-size:.85rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s,border-color .15s}
+.card:hover{border-color:#d9cbb0;box-shadow:0 6px 22px rgba(60,40,10,.07)}
+.card .top{display:flex;align-items:center;gap:12px}
+.ico{width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.ico svg{width:22px;height:22px}
+.card h3{margin:0;font-size:1.02rem;font-weight:600}
+.card .sub{margin:1px 0 0;color:var(--muted);font-size:.8rem}
+.card p.d{margin:0;color:var(--muted);font-size:.88rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid}
+.t-free{color:var(--ok);background:var(--ok-soft);border-color:#bfe0cc}
+.t-google{color:var(--info);background:var(--info-soft);border-color:#c6d7e8}
+.t-pin{color:var(--warn);background:var(--warn-soft);border-color:#ecd6a6}
+.t-who{color:var(--muted);background:var(--surface2);border-color:var(--line)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;font-size:.88rem;padding:9px 14px;border-radius:10px;background:var(--accent);color:#fff;border:1px solid var(--accent)}
+.btn:hover{background:#74551d}
+.btn.ghost{background:transparent;color:var(--accent);border-color:#d9c79f}
+.btn.ghost:hover{background:var(--accent-soft)}
+.btn svg{width:15px;height:15px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+summary{cursor:pointer;padding:13px 16px;font-weight:600;font-size:.92rem;list-style:none;display:flex;align-items:center;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";margin-left:auto;color:var(--accent);font-size:1.2rem;line-height:1}
+details[open] summary::after{content:"–"}
+details .in{padding:0 16px 14px;color:var(--muted);font-size:.88rem}
+details .in ol,details .in ul{margin:4px 0 0;padding-left:20px}
+details .in li{margin:3px 0}
+code{white-space:nowrap;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:6px}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--line);text-decoration:none}
+.row:first-child{border-top:0}
+.row:hover{background:var(--surface2)}
+.row b{font-weight:600;font-size:.9rem}
+.row span{color:var(--muted);font-size:.8rem}
+.row .go{margin-left:auto;color:var(--accent);font-weight:600;font-size:.82rem;white-space:nowrap}
+.auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.auto .ta{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.auto b{font:400 1.3rem var(--f-display);color:var(--accent);display:block}
+.auto span{font-size:.85rem;color:var(--muted)}
+.auto em{font-style:normal;font-size:.75rem;font-weight:600;color:var(--accent);margin-top:4px}
+.auto .alt{margin-top:8px;align-self:flex-start;font:600 .8rem var(--f-body);color:var(--accent);background:transparent;border:1px solid #d9c79f;border-radius:8px;padding:6px 10px;cursor:pointer}
+.auto .alt:hover{background:var(--accent-soft)}
+.ajuste{margin-top:10px;background:var(--surface);border:1.5px solid var(--gold);border-radius:var(--r);padding:16px}
+.aj-tit{font-size:.92rem;margin-bottom:10px}
+.aj-row{display:flex;flex-wrap:wrap;gap:12px}
+.ajuste label{font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.ajuste input[type=time],.ajuste select{font:500 .95rem var(--f-body);padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);color:var(--ink);min-width:170px}
+.dias{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.dias label{flex-direction:row;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:var(--surface2);color:var(--ink);font-size:.82rem}
+.ajuste label.pausa{flex-direction:row;align-items:center;gap:8px;margin-top:12px;color:var(--ink)}
+.ajuste .btns{margin-top:12px}
+.ajuste button.btn{cursor:pointer;font-family:var(--f-body)}
+.aj-nota{margin:10px 0 0;font-size:.78rem;color:var(--muted)}
+footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+@media (max-width:760px){
+  .steps{grid-template-columns:1fr 1fr}
+  .hoje{display:none}
+  header img{width:58px;height:58px}
+  header h1{font-size:1.4rem}
+  .wrap{padding:20px 14px 48px}
+}
+@media (max-width:420px){.steps{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <img src="https://adrianofabri.github.io/preconsulta/logo-redonda.png" alt="Logomarca Dr. Adriano Fabri Domingues">
+  <div>
+    <h1>Central de Aplicativos</h1>
+    <p>Dr. Adriano Fabri Domingues · Nutrologia · Emagrecimento &amp; Composição Corporal</p>
+  </div>
+  <div class="hoje"><b id="data"></b><span id="saud"></span></div>
+</header>
+
+<section class="fluxo">
+  <h2>Fluxo do paciente novo</h2>
+  <div class="steps">
+    <div class="step"><b>Agendou</b>Secretária gera o link na Recepção e envia pelo WhatsApp</div>
+    <div class="step"><b>Paciente responde</b>Pré-consulta no celular, em ~3 minutos</div>
+    <div class="step"><b>Você é avisado</b>E-mail com IMC, EFCA e alertas</div>
+    <div class="step"><b>Consulta</b>Painel do Médico → copiar para o Tribe e gerar PDF</div>
+  </div>
+</section>
+
+<div class="sec"><h2>Pré-Consulta</h2><span>questionário antes da 1ª consulta</span></div>
+<div class="grid">
+  <article class="card">
+    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div><h3>Recepção</h3><p class="sub">Para as secretárias</p></div></div>
+    <p class="d">Gera e envia o link da pré-consulta, acompanha quem já respondeu e lembra quem está atrasado. Não mostra nenhuma resposta clínica.</p>
+    <div class="tags"><span class="tag t-free">Sem login Google</span><span class="tag t-pin">Senha da recepção</span></div>
+    <div class="btns"><a class="btn" href="https://adrianofabri.github.io/preconsulta/recepcao/" target="_blank" rel="noopener">Abrir Recepção</a></div>
+  </article>
+  <article class="card">
+    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg></div>
+      <div><h3>Painel do Médico</h3><p class="sub">Só você</p></div></div>
+    <p class="d">Respostas completas, EFCA, alertas de segurança GLP-1, texto pronto para o Tribe e PDF. Também gera links.</p>
+    <div class="tags"><span class="tag t-google">Login adriano.nutro</span></div>
+    <div class="btns"><a class="btn" href="https://script.google.com/macros/s/AKfycby88WKaID-1AbBRJ9qfDWg2q2TLLtlyacEQKEhZp0hj0S4qeAGTE1j_Mm1nqWGI2muzBw/exec" target="_blank" rel="noopener">Abrir Painel</a></div>
+  </article>
+</div>
+
+<div class="sec"><h2>Protocolo Tirzepatida</h2><span>aplicações semanais, peso e circunferência</span></div>
+<div class="grid">
+  <article class="card">
+    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4M17 7l3-3M19 9 8.7 19.3a1 1 0 0 1-1.4 0L4.7 16.7a1 1 0 0 1 0-1.4L15 5M9 11l4 4M5 19l-3 3M14 4l6 6"/></svg></div>
+      <div><h3>Protocolo Tirzepatida 2.0</h3><p class="sub">Dashboard, curvas, PDF e calculadora metabólica</p></div></div>
+    <p class="d">Registro de aplicações com dose em UI, lote e validade, gráficos de peso e circunferência, mini anamnese de evolução e relatório em PDF.</p>
+    <div class="tags"><span class="tag t-google">Login adriano.nutro</span></div>
+    <div class="btns"><a class="btn" href="https://script.google.com/macros/s/AKfycbw5FiniNd-x1N4ZwJHHDS1C9SGHCbtzOAUYh6xDsV0BFY_fU4DEQMbiPA0F6gw8rzS0/exec" target="_blank" rel="noopener">Abrir 2.0</a></div>
+  </article>
+</div>
+
+<div class="sec"><h2>Gestão</h2><span>finanças e relatórios ao paciente</span></div>
+<div class="grid">
+  <article class="card">
+    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></div>
+      <div><h3>Financeiro do Consultório</h3><p class="sub">Receitas, despesas, taxas e imposto</p></div></div>
+    <p class="d">Lançamentos com taxas PagBank, imposto de 6%, despesas fixas, gráficos mensais, relatório em PDF e tabela de preços para o paciente.</p>
+    <div class="tags"><span class="tag t-google">Login adriano.nutro</span><span class="tag t-pin">PIN de 4 dígitos</span></div>
+    <div class="btns"><a class="btn" href="https://script.google.com/macros/s/AKfycbwO797VFxIZabeqJtHt90NMCU5tHv0UpRmULhBIZSX5tIsKgKacLeZzb0kiLuheZkQN/exec" target="_blank" rel="noopener">Abrir Financeiro</a></div>
+  </article>
+  <article class="card">
+    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+      <div><h3>Jornada do Paciente</h3><p class="sub">Painel de evolução entregue a cada retorno</p></div></div>
+    <p class="d">Feita pelo Claude: digite <code>/jornada Nome do Paciente</code> (ou <code>/jornada novos</code>). A jornada fica salva na pasta do paciente no Drive.</p>
+    <div class="tags"><span class="tag t-who">Pelo Claude</span><span class="tag t-who">Verificação diária às 19h</span></div>
+    <div class="btns"><a class="btn ghost" href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude</a><a class="btn ghost" href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener">Abrir Drive</a></div>
+  </article>
+</div>
+
+<div class="sec"><h2>Planilhas</h2><span>bancos de dados, na pasta 10 do Drive · só consulta</span></div>
+<div class="list">
+  <a class="row" href="https://docs.google.com/spreadsheets/d/1PWau4_Fyn5GCBjT3KXrzmvj45FTS_k6TuTJVp1d6UGE/edit" target="_blank" rel="noopener"><div><b>Pré-Consulta – Banco de Dados</b><br><span>Aba Config: senha da recepção, WhatsApp, mensagens e e-mail de aviso</span></div><span class="go">Abrir ↗</span></a>
+  <a class="row" href="https://docs.google.com/spreadsheets/d/14WR7OL7gS76pLJEScO0qmihpXG6nIb5ybvZyAVpr45g/edit" target="_blank" rel="noopener"><div><b>Protocolo Tirzepatida – Banco de Dados</b><br><span>Pacientes, aplicações e dados metabólicos</span></div><span class="go">Abrir ↗</span></a>
+  <a class="row" href="https://docs.google.com/spreadsheets/d/1CpDNBN4pEHjhx3Rt6MMulLNBV0dFwGY3CkrHOCIGXdE/edit" target="_blank" rel="noopener"><div><b>Financeiro do Consultório – Banco de Dados</b><br><span>Lançamentos, taxas, despesas fixas e tabela de preços</span></div><span class="go">Abrir ↗</span></a>
+</div>
+
+<div class="sec"><h2>Automações</h2><span>rodam sozinhas no Mac mini · ajuste horário e dias quando quiser</span></div>
+<div class="auto">
+  <div class="ta" data-nome="Anexar documentos novos dos pacientes no TribeMD" data-h="05:45" data-d="todos"><b>5h45</b><span>Anexa documentos novos dos pacientes no TribeMD</span><em>Todos os dias</em></div>
+  <div class="ta" data-nome="Verificação do login do TribeMD (aviso no celular se estiver deslogado)" data-h="18:00" data-d="todos"><b>18h00</b><span>Confere o login do TribeMD e avisa no celular se caiu</span><em>Todos os dias</em></div>
+  <div class="ta" data-nome="Verificação diária da Jornada do Paciente" data-h="19:00" data-d="todos"><b>19h00</b><span>Verifica e atualiza as Jornadas dos pacientes</span><em>Todos os dias</em></div>
+</div>
+<div class="ajuste" id="ajuste" hidden>
+  <div class="aj-tit">Alterar: <b id="aj-nome"></b></div>
+  <div class="aj-row">
+    <label>Novo horário <input type="time" id="aj-h"></label>
+    <label>Dias
+      <select id="aj-d">
+        <option value="todos">Todos os dias</option>
+        <option value="uteis">Segunda a sexta</option>
+        <option value="uteis-sab">Segunda a sábado</option>
+        <option value="pers">Escolher dias…</option>
+      </select>
+    </label>
+  </div>
+  <div class="dias" id="aj-dias" hidden>
+    <label><input type="checkbox" value="segunda">Seg</label><label><input type="checkbox" value="terça">Ter</label><label><input type="checkbox" value="quarta">Qua</label><label><input type="checkbox" value="quinta">Qui</label><label><input type="checkbox" value="sexta">Sex</label><label><input type="checkbox" value="sábado">Sáb</label><label><input type="checkbox" value="domingo">Dom</label>
+  </div>
+  <label class="pausa"><input type="checkbox" id="aj-pausar"> Pausar esta automação</label>
+  <div class="btns"><button class="btn" id="aj-ok" type="button">Pedir alteração ao Claude</button><button class="btn ghost" id="aj-x" type="button">Cancelar</button></div>
+  <p class="aj-nota">Abre o Claude com o pedido pronto; é só enviar. A tarefa agendada é alterada por lá e o horário aqui na Central é atualizado na próxima revisão da página.</p>
+</div>
+
+<footer>
+  <span>Central de Aplicativos · uso interno do consultório · no celular: Compartilhar → Adicionar à Tela de Início</span>
+  <span>Senhas não ficam nesta página · dados dos pacientes ficam só na conta Google</span>
+</footer>
+</div>
+<script>
+(function(){
+  var cards=document.querySelectorAll(".auto .ta"),box=document.getElementById("ajuste"),atual=null;
+  cards.forEach(function(c){var b=document.createElement("button");b.type="button";b.className="alt";b.textContent="Alterar horário ou dias";
+    b.onclick=function(){atual=c;document.getElementById("aj-nome").textContent=c.dataset.nome;document.getElementById("aj-h").value=c.dataset.h;
+      document.getElementById("aj-d").value="todos";document.getElementById("aj-dias").hidden=true;document.getElementById("aj-pausar").checked=false;
+      box.hidden=false;box.scrollIntoView({behavior:"smooth",block:"center"})};c.appendChild(b)});
+  document.getElementById("aj-d").onchange=function(){document.getElementById("aj-dias").hidden=this.value!=="pers"};
+  document.getElementById("aj-x").onclick=function(){box.hidden=true};
+  document.getElementById("aj-ok").onclick=function(){
+    if(!atual)return;var nome=atual.dataset.nome,msg;
+    if(document.getElementById("aj-pausar").checked){msg="Quero pausar a tarefa agendada \""+nome+"\" que roda no Mac mini, até eu pedir para reativar."}
+    else{var hr=document.getElementById("aj-h").value||atual.dataset.h,sel=document.getElementById("aj-d").value,dias;
+      if(sel==="todos")dias="todos os dias";else if(sel==="uteis")dias="de segunda a sexta";else if(sel==="uteis-sab")dias="de segunda a sábado";
+      else{var v=[].map.call(document.querySelectorAll("#aj-dias input:checked"),function(i){return i.value});if(!v.length){document.querySelector(".aj-nota").textContent="Escolha pelo menos um dia.";return}dias="nos dias "+(v.length>1?v.slice(0,-1).join(", ")+" e "+v[v.length-1]:v[0])}
+      msg="Quero alterar a tarefa agendada \""+nome+"\" que roda no Mac mini: passar a rodar "+dias+" às "+hr.replace(":","h")+" (horário de Cuiabá). Depois, atualize também o horário na Central de Aplicativos (adrianofabri.github.io)."}
+    window.open("https://claude.ai/new?q="+encodeURIComponent(msg),"_blank","noopener");box.hidden=true};
+})();
+(function(){
+  var d=new Date(),h=d.getHours();
+  document.getElementById("data").textContent=d.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long"});
+  document.getElementById("saud").textContent=(h<12?"Bom dia":h<18?"Boa tarde":"Boa noite")+", Dr. Adriano";
+})();
+</script>
+</body>
+</html>
