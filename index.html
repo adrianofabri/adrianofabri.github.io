@@ -29,12 +29,12 @@ header h1{font:400 1.75rem/1.15 var(--f-display);margin:0;color:var(--ink)}
 header p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
 .hoje{margin-left:auto;text-align:right;color:var(--muted);font-size:.82rem;white-space:nowrap}
 .hoje b{display:block;font:400 1.05rem var(--f-display);color:var(--accent)}
-.fluxo{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:26px}
-.fluxo h2{font:600 .72rem/1 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:s}
-.step{position:relative;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px 12px 10px 42px;font-size:.86rem;color:var(--muted)}
-.step b{display:block;color:var(--ink);font-size:.9rem}
-.step::before{counter-increment:s;content:counter(s);position:absolute;left:11px;top:11px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font:600 .75rem/22px var(--f-body);text-align:center}
+.fluxo{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:-8px 0 6px;font-size:.8rem;color:var(--muted)}
+.fl-t{font-weight:600;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.fluxo ol{display:flex;flex-wrap:wrap;gap:4px 6px;margin:0;padding:0;list-style:none;counter-reset:s}
+.fluxo li{display:flex;align-items:center;gap:5px}
+.fluxo li::before{counter-increment:s;content:counter(s);width:16px;height:16px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font:600 .66rem/16px var(--f-body);text-align:center}
+.fluxo li:not(:last-child)::after{content:"›";color:#c9b68f;margin-left:4px}
 .sec{margin:30px 0 12px;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
 .sec h2{font:400 1.25rem var(--f-display);margin:0}
 .sec span{color:var(--muted);font-size:.85rem}
@@ -96,13 +96,12 @@ code{white-space:nowrap;font-family:ui-monospace,Menlo,monospace;font-size:.82re
 .aj-nota{margin:10px 0 0;font-size:.78rem;color:var(--muted)}
 footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
 @media (max-width:760px){
-  .steps{grid-template-columns:1fr 1fr}
   .hoje{display:none}
   header img{width:58px;height:58px}
   header h1{font-size:1.4rem}
   .wrap{padding:20px 14px 48px}
 }
-@media (max-width:420px){.steps{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+@media (max-width:420px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -117,15 +116,7 @@ footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:v
   <div class="hoje"><b id="data"></b><span id="saud"></span></div>
 </header>
 
-<section class="fluxo">
-  <h2>Fluxo do paciente novo</h2>
-  <div class="steps">
-    <div class="step"><b>Agendou</b>Secretária gera o link na Recepção e envia pelo WhatsApp</div>
-    <div class="step"><b>Paciente responde</b>Pré-consulta no celular, em ~3 minutos</div>
-    <div class="step"><b>Você é avisado</b>E-mail com IMC, EFCA e alertas</div>
-    <div class="step"><b>Consulta</b>Painel do Médico → copiar para o Tribe e gerar PDF</div>
-  </div>
-</section>
+<div class="fluxo"><span class="fl-t">Fluxo do paciente novo</span><ol><li>Recepção gera o link</li><li>Paciente responde</li><li>Você recebe o e-mail</li><li>Painel → Tribe e PDF</li></ol></div>
 
 <div class="sec"><h2>Pré-Consulta</h2><span>questionário antes da 1ª consulta</span></div>
 <div class="grid">
