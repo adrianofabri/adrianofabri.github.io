@@ -6,176 +6,289 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#f6f3ee">
+<meta name="format-detection" content="telephone=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Central AD">
 <title>Central de Aplicativos · Dr. Adriano Fabri Domingues</title>
 <link rel="icon" href="https://adrianofabri.github.io/preconsulta/logo-redonda.png">
 <link rel="apple-touch-icon" href="https://adrianofabri.github.io/preconsulta/logo-redonda.png">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Central%20de%20Aplicativos%20%C2%B7%20Dr.%20Adriano%22%2C%22short_name%22%3A%22Central%20AD%22%2C%22start_url%22%3A%22https%3A%2F%2Fadrianofabri.github.io%2F%22%2C%22scope%22%3A%22https%3A%2F%2Fadrianofabri.github.io%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f6f3ee%22%2C%22theme_color%22%3A%22%23f6f3ee%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fadrianofabri.github.io%2Fpreconsulta%2Flogo-redonda.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Instrument+Sans:wght@400;500;600;700&display=swap">
 <style>
-:root{--bg:#f6f3ee;--surface:#fff;--surface2:#fbf8f3;--ink:#221d16;--muted:#6f675b;--line:#e6dfd3;--accent:#8a6624;--accent-soft:#f4ecdc;--gold:#b8913f;
---ok:#1f7a4d;--ok-soft:#e3f3ea;--info:#2d5f8a;--info-soft:#e6eef6;--warn:#9a6200;--warn-soft:#fbf0d9;
---f-display:"Marcellus",Georgia,serif;--f-body:"Instrument Sans",system-ui,sans-serif;--r:16px}
+:root{--bg:#f6f3ee;--surface:#fff;--surface2:#fbf8f3;--ink:#221d16;--muted:#6f675b;--line:#e8e1d5;--line2:#ddd2bf;
+--accent:#8a6624;--accent-d:#6f5019;--accent-soft:#f4ecdc;--gold:#b8913f;--gold-l:#d9c08a;
+--ok:#1f7a4d;--ok-soft:#e5f3eb;--info:#2d5f8a;--info-soft:#e8eff6;--warn:#8f5b00;--warn-soft:#fbf0d9;
+--f-display:"Marcellus",Georgia,serif;--f-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+--r:18px;--sh:0 1px 2px rgba(60,40,10,.04),0 6px 20px rgba(60,40,10,.05);--sh-h:0 2px 4px rgba(60,40,10,.05),0 12px 32px rgba(60,40,10,.09)}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 a{color:inherit}
-.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
-header{display:flex;align-items:center;gap:18px;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:26px}
-header img{width:72px;height:72px;border-radius:50%;flex:none}
-header h1{font:400 1.75rem/1.15 var(--f-display);margin:0;color:var(--ink)}
-header p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
-.hoje{margin-left:auto;text-align:right;color:var(--muted);font-size:.82rem;white-space:nowrap}
-.hoje b{display:block;font:400 1.05rem var(--f-display);color:var(--accent)}
-.fluxo{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:-8px 0 6px;font-size:.8rem;color:var(--muted)}
-.fl-t{font-weight:600;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-.fluxo ol{display:flex;flex-wrap:wrap;gap:4px 6px;margin:0;padding:0;list-style:none;counter-reset:s}
-.fluxo li{display:flex;align-items:center;gap:5px}
-.fluxo li::before{counter-increment:s;content:counter(s);width:16px;height:16px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font:600 .66rem/16px var(--f-body);text-align:center}
-.fluxo li:not(:last-child)::after{content:"›";color:#c9b68f;margin-left:4px}
-.sec{margin:30px 0 12px;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
-.sec h2{font:400 1.25rem var(--f-display);margin:0}
-.sec span{color:var(--muted);font-size:.85rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s,border-color .15s}
-.card:hover{border-color:#d9cbb0;box-shadow:0 6px 22px rgba(60,40,10,.07)}
-.card .top{display:flex;align-items:center;gap:12px}
-.ico{width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
-.ico svg{width:22px;height:22px}
-.card h3{margin:0;font-size:1.02rem;font-weight:600}
-.card .sub{margin:1px 0 0;color:var(--muted);font-size:.8rem}
-.card p.d{margin:0;color:var(--muted);font-size:.88rem}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:1080px;margin:0 auto;padding:calc(24px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(56px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left))}
+
+/* topo */
+.hero{position:relative;display:flex;align-items:center;gap:18px;padding:22px 24px;border-radius:24px;background:linear-gradient(135deg,#fffdf9 0%,#f7efdf 100%);border:1px solid var(--line2);box-shadow:var(--sh);overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:1px solid rgba(184,145,63,.22);pointer-events:none}
+.hero::before{content:"";position:absolute;right:-20px;top:-100px;width:260px;height:260px;border-radius:50%;border:1px solid rgba(184,145,63,.14);pointer-events:none}
+.hero img{width:76px;height:76px;border-radius:50%;flex:none;background:#fff;box-shadow:0 0 0 1px var(--line2),0 4px 14px rgba(60,40,10,.10)}
+.hero .tx{min-width:0;position:relative;z-index:1}
+.eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font:400 1.8rem/1.15 var(--f-display);margin:3px 0 2px;letter-spacing:.005em}
+.hero p{margin:0;color:var(--muted);font-size:.9rem}
+.hero .dt{margin-left:auto;text-align:right;position:relative;z-index:1;flex:none}
+.hero .dt b{display:block;font:400 1.08rem var(--f-display);color:var(--accent)}
+.hero .dt span{font-size:.8rem;color:var(--muted)}
+
+/* acesso rápido */
+.quick{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:18px 0 6px}
+.qt{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:118px;padding:16px 14px 14px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh);text-decoration:none;transition:transform .12s ease,box-shadow .15s,border-color .15s}
+.qt:hover{border-color:var(--gold-l);box-shadow:var(--sh-h)}
+.qt:active{transform:scale(.97)}
+.qt .ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.qt.pri .ic{background:linear-gradient(135deg,#a67c2e,#8a6624);color:#fff;box-shadow:0 4px 10px rgba(138,102,36,.28)}
+.qt b{font-size:.93rem;font-weight:600;line-height:1.2}
+.qt small{display:block;margin-top:2px;font-size:.72rem;color:var(--muted);font-weight:500}
+.qt .ar{position:absolute;top:14px;right:12px;width:16px;height:16px;color:#c3ad80}
+
+/* seções */
+.sec{margin:34px 0 14px;display:flex;align-items:flex-end;gap:4px 12px;flex-wrap:wrap}
+.sec h2{font:400 1.32rem/1.2 var(--f-display);margin:0}
+.sec span{color:var(--muted);font-size:.84rem}
+.sec::after{content:"";flex:1 1 40px;height:1px;background:linear-gradient(90deg,var(--line2),transparent);margin-bottom:7px;min-width:40px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--sh);transition:box-shadow .15s,border-color .15s}
+.card:hover{border-color:var(--gold-l);box-shadow:var(--sh-h)}
+.card .top{display:flex;align-items:center;gap:13px}
+.ico{width:44px;height:44px;border-radius:13px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.card h3{margin:0;font-size:1.04rem;font-weight:600;line-height:1.25}
+.card .sub{margin:2px 0 0;color:var(--muted);font-size:.8rem}
+.card p.d{margin:0;color:var(--muted);font-size:.88rem;line-height:1.55}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid}
-.t-free{color:var(--ok);background:var(--ok-soft);border-color:#bfe0cc}
-.t-google{color:var(--info);background:var(--info-soft);border-color:#c6d7e8}
-.t-pin{color:var(--warn);background:var(--warn-soft);border-color:#ecd6a6}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:999px;border:1px solid}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.75}
+.t-free{color:var(--ok);background:var(--ok-soft);border-color:#c4e3d1}
+.t-google{color:var(--info);background:var(--info-soft);border-color:#cbdaea}
+.t-pin{color:var(--warn);background:var(--warn-soft);border-color:#eedaa9}
 .t-who{color:var(--muted);background:var(--surface2);border-color:var(--line)}
-.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:4px}
-.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;font-size:.88rem;padding:9px 14px;border-radius:10px;background:var(--accent);color:#fff;border:1px solid var(--accent)}
-.btn:hover{background:#74551d}
-.btn.ghost{background:transparent;color:var(--accent);border-color:#d9c79f}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;text-decoration:none;font:600 .9rem var(--f-body);padding:10px 16px;border-radius:12px;background:var(--accent);color:#fff;border:1px solid var(--accent);cursor:pointer;transition:background .15s,transform .1s;white-space:nowrap}
+.btn:hover{background:var(--accent-d)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--surface);color:var(--accent);border-color:var(--gold-l)}
 .btn.ghost:hover{background:var(--accent-soft)}
-.btn svg{width:15px;height:15px}
-button.btn{cursor:pointer;font-family:var(--f-body)}
-details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
-summary{cursor:pointer;padding:13px 16px;font-weight:600;font-size:.92rem;list-style:none;display:flex;align-items:center;gap:10px}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";margin-left:auto;color:var(--accent);font-size:1.2rem;line-height:1}
-details[open] summary::after{content:"–"}
-details .in{padding:0 16px 14px;color:var(--muted);font-size:.88rem}
-details .in ol,details .in ul{margin:4px 0 0;padding-left:20px}
-details .in li{margin:3px 0}
-code{white-space:nowrap;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:6px}
-.list{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--line);text-decoration:none}
-.row:first-child{border-top:0}
-.row:hover{background:var(--surface2)}
-.row b{font-weight:600;font-size:.9rem}
-.row span{color:var(--muted);font-size:.8rem}
-.row .go{margin-left:auto;color:var(--accent);font-weight:600;font-size:.82rem;white-space:nowrap}
-.auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.auto .ta{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
-.auto b{font:400 1.3rem var(--f-display);color:var(--accent);display:block}
-.auto span{font-size:.85rem;color:var(--muted)}
-.auto em{font-style:normal;font-size:.75rem;font-weight:600;color:var(--accent);margin-top:4px}
-.auto .alt{margin-top:8px;align-self:flex-start;font:600 .8rem var(--f-body);color:var(--accent);background:transparent;border:1px solid #d9c79f;border-radius:8px;padding:6px 10px;cursor:pointer}
-.auto .alt:hover{background:var(--accent-soft)}
-.ajuste{margin-top:10px;background:var(--surface);border:1.5px solid var(--gold);border-radius:var(--r);padding:16px}
-.aj-tit{font-size:.92rem;margin-bottom:10px}
-.aj-row{display:flex;flex-wrap:wrap;gap:12px}
-.ajuste label{font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:4px}
-.ajuste input[type=time],.ajuste select{font:500 .95rem var(--f-body);padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);color:var(--ink);min-width:170px}
-.dias{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.dias label{flex-direction:row;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:var(--surface2);color:var(--ink);font-size:.82rem}
-.ajuste label.pausa{flex-direction:row;align-items:center;gap:8px;margin-top:12px;color:var(--ink)}
-.ajuste .btns{margin-top:12px}
-.ajuste button.btn{cursor:pointer;font-family:var(--f-body)}
-.aj-nota{margin:10px 0 0;font-size:.78rem;color:var(--muted)}
-footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn svg.i{width:17px;height:17px}
+.btn:focus-visible,.qt:focus-visible,.alt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:6px;word-break:break-word}
+
+/* fluxo */
+.fluxo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 14px;padding:0;list-style:none;counter-reset:s}
+.fluxo li{display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:12px;background:var(--surface2);border:1px dashed var(--line2);font-size:.8rem;color:var(--muted);line-height:1.3}
+.fluxo li::before{counter-increment:s;content:counter(s);flex:none;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font:700 .72rem/22px var(--f-body);text-align:center}
+
+/* automações */
+.auto{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.ta{display:flex;align-items:center;gap:14px;padding:14px 18px;border-top:1px solid var(--line)}
+.ta:first-child{border-top:0}
+.ta .hr{flex:none;width:68px;font:400 1.35rem/1 var(--f-display);color:var(--accent)}
+.ta .tx{flex:1;min-width:0}
+.ta .tx span{display:block;font-size:.88rem;line-height:1.35}
+.ta .tx em{display:block;font-style:normal;font-size:.74rem;font-weight:600;color:var(--muted);margin-top:3px}
+.alt{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:40px;font:600 .8rem var(--f-body);color:var(--accent);background:var(--surface);border:1px solid var(--gold-l);border-radius:10px;padding:8px 12px;cursor:pointer}
+.alt:hover{background:var(--accent-soft)}
+.alt svg.i{width:15px;height:15px}
+
+/* painel de ajuste (folha inferior no celular, diálogo no computador) */
+.veu{position:fixed;inset:0;background:rgba(34,29,22,.38);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:40;opacity:0;transition:opacity .2s}
+.veu.on{opacity:1}
+.ajuste{position:fixed;left:50%;top:50%;width:min(480px,calc(100vw - 32px));max-height:calc(100vh - 32px);overflow:auto;transform:translate(-50%,-46%);opacity:0;z-index:41;background:var(--surface);border-radius:22px;padding:22px;box-shadow:0 20px 60px rgba(34,29,22,.25);transition:transform .22s ease,opacity .2s}
+.ajuste.on{transform:translate(-50%,-50%);opacity:1}
+.aj-h{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.aj-h .eyebrow{display:block;margin-bottom:3px}
+.aj-h b{font:400 1.1rem/1.3 var(--f-display);display:block}
+.aj-x{margin-left:auto;flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface2);color:var(--muted);font-size:1.2rem;line-height:1;cursor:pointer}
+.aj-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ajuste label.f{font-size:.78rem;font-weight:600;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+.ajuste input[type=time],.ajuste select{width:100%;min-height:46px;font:500 1rem var(--f-body);padding:10px 12px;border:1px solid var(--line2);border-radius:12px;background:var(--surface2);color:var(--ink);-webkit-appearance:none;appearance:none}
+.ajuste select{background-image:linear-gradient(45deg,transparent 50%,var(--accent) 50%),linear-gradient(135deg,var(--accent) 50%,transparent 50%);background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px;background-repeat:no-repeat;padding-right:30px}
+.ajuste input:focus,.ajuste select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.dias{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:12px}
+.dias label{position:relative}
+.dias input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.dias span{display:flex;align-items:center;justify-content:center;min-height:40px;border:1px solid var(--line2);border-radius:999px;padding:6px 2px;background:var(--surface2);font-size:.8rem;font-weight:600;color:var(--muted)}
+.dias input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+.dias input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.pausa{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px;border-radius:12px;background:var(--surface2);font-size:.88rem;cursor:pointer}
+.pausa input{width:20px;height:20px;accent-color:var(--accent)}
+.ajuste .btns{margin-top:16px}
+.ajuste .btns .btn{flex:1}
+.aj-nota{margin:12px 0 0;font-size:.78rem;color:var(--muted)}
+.aj-nota.err{color:#b3261e;font-weight:600}
+
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+footer b{color:var(--ink);font-weight:600}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:11px 18px;border-radius:999px;z-index:60;transition:all .22s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.toast.on{transform:translate(-50%,0);opacity:1}
+
+@media (max-width:960px){.quick{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){
-  .hoje{display:none}
-  header img{width:58px;height:58px}
-  header h1{font-size:1.4rem}
-  .wrap{padding:20px 14px 48px}
+  body{font-size:15.5px}
+  .wrap{padding:calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left))}
+  .hero{padding:18px;gap:14px;border-radius:22px;align-items:center}
+  .hero img{width:60px;height:60px}
+  .hero h1{font-size:1.38rem}
+  .hero p{font-size:.8rem}
+  .hero .dt{display:none}
+  .hero .tx .greet{display:block}
+  .quick{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+  .qt{min-height:104px;padding:14px 12px 12px;border-radius:16px}
+  .qt .ic{width:40px;height:40px}
+  .grid{grid-template-columns:1fr;gap:12px}
+  .card{padding:18px 16px;border-radius:16px}
+  .card .btns .btn{flex:1 1 auto}
+  .card .btns .btn:first-child{flex-basis:100%}
+  .fluxo{grid-template-columns:1fr 1fr}
+  .sec{margin:28px 2px 12px}
+  .sec h2{font-size:1.22rem}
+  .ta{padding:14px;gap:12px;flex-wrap:wrap}
+  .ta .hr{width:auto;min-width:58px;font-size:1.25rem}
+  .ta .tx{flex:1 1 calc(100% - 90px)}
+  .alt{width:100%;justify-content:center;margin-left:70px;width:calc(100% - 70px)}
+  .ajuste{left:0;right:0;top:auto;bottom:0;width:100%;max-height:88vh;border-radius:22px 22px 0 0;transform:translateY(100%);opacity:1;padding:10px 18px calc(18px + env(safe-area-inset-bottom))}
+  .ajuste::before{content:"";display:block;width:40px;height:5px;border-radius:99px;background:var(--line2);margin:0 auto 14px}
+  .ajuste.on{transform:translateY(0)}
+  .aj-row{grid-template-columns:1fr}
+  footer{flex-direction:column}
 }
-@media (max-width:420px){.grid{grid-template-columns:1fr}}
+.greet{display:none;margin-top:6px;font-size:.8rem;color:var(--accent);font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-recep" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-painel" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-tirze" viewBox="0 0 24 24"><path d="m18 2 4 4M17 7l3-3M19 9 8.7 19.3a1 1 0 0 1-1.4 0L4.7 16.7a1 1 0 0 1 0-1.4L15 5M9 11l4 4M5 19l-3 3M14 4l6 6"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h4"/></symbol>
+  <symbol id="i-fin" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></symbol>
+  <symbol id="i-jorn" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-copia" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.65-3.8A9 9 0 1 1 7.9 20.3L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></symbol>
+  <symbol id="i-relogio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-drive" viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 7H6l-4-7z"/><path d="m8 3 8 17M16 3 6 20M2 13h20"/></symbol>
+</svg>
+
 <div class="wrap">
 
-<header>
-  <img src="https://adrianofabri.github.io/preconsulta/logo-redonda.png" alt="Logomarca Dr. Adriano Fabri Domingues">
-  <div>
+<header class="hero">
+  <img src="https://adrianofabri.github.io/preconsulta/logo-redonda.png" alt="Logomarca Dr. Adriano Fabri Domingues" width="76" height="76">
+  <div class="tx">
+    <span class="eyebrow">Consultório · uso interno</span>
     <h1>Central de Aplicativos</h1>
-    <p>Dr. Adriano Fabri Domingues · Nutrologia · Emagrecimento &amp; Composição Corporal</p>
+    <p>Dr. Adriano Fabri Domingues · Nutrologia</p>
+    <span class="greet" id="greet-m"></span>
   </div>
-  <div class="hoje"><b id="data"></b><span id="saud"></span></div>
+  <div class="dt"><b id="data"></b><span id="saud"></span></div>
 </header>
 
-<div class="fluxo"><span class="fl-t">Fluxo do paciente novo</span><ol><li>Recepção gera o link</li><li>Paciente responde</li><li>Você recebe o e-mail</li><li>Painel → Tribe e PDF</li></ol></div>
+<nav class="quick" aria-label="Acesso rápido">
+  <a class="qt pri" href="https://adrianofabri.github.io/preconsulta/recepcao/" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-recep"/></svg></span><span><b>Recepção</b><small>Senha da recepção</small></span><svg class="i ar"><use href="#i-seta"/></svg></a>
+  <a class="qt pri" href="https://script.google.com/macros/s/AKfycby88WKaID-1AbBRJ9qfDWg2q2TLLtlyacEQKEhZp0hj0S4qeAGTE1j_Mm1nqWGI2muzBw/exec" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-painel"/></svg></span><span><b>Painel do Médico</b><small>Login adriano.nutro</small></span><svg class="i ar"><use href="#i-seta"/></svg></a>
+  <a class="qt pri" href="tirzepatida/" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-tirze"/></svg></span><span><b>Tirzepatida 2.0</b><small>Senha do app</small></span><svg class="i ar"><use href="#i-seta"/></svg></a>
+  <a class="qt" href="tirzepatida/calculadora.html" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-calc"/></svg></span><span><b>Calculadora</b><small>Metabólica</small></span><svg class="i ar"><use href="#i-seta"/></svg></a>
+  <a class="qt" href="https://script.google.com/macros/s/AKfycbwO797VFxIZabeqJtHt90NMCU5tHv0UpRmULhBIZSX5tIsKgKacLeZzb0kiLuheZkQN/exec" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-fin"/></svg></span><span><b>Financeiro</b><small>Google + PIN</small></span><svg class="i ar"><use href="#i-seta"/></svg></a>
+  <a class="qt" href="#jornada"><span class="ic"><svg class="i"><use href="#i-jorn"/></svg></span><span><b>Jornada</b><small>Pelo Claude</small></span></a>
+</nav>
 
-<div class="sec"><h2>Pré-Consulta</h2><span>questionário antes da 1ª consulta</span></div>
+<section aria-labelledby="s-pre">
+<div class="sec"><h2 id="s-pre">Pré-Consulta</h2><span>questionário antes da 1ª consulta</span></div>
+<ol class="fluxo" aria-label="Fluxo do paciente novo"><li>Recepção gera e envia o link</li><li>Paciente responde no celular</li><li>Você recebe o aviso por e-mail</li><li>Painel → copiar para o Tribe e PDF</li></ol>
 <div class="grid">
   <article class="card">
-    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <div class="top"><div class="ico"><svg class="i"><use href="#i-recep"/></svg></div>
       <div><h3>Recepção</h3><p class="sub">Para as secretárias</p></div></div>
     <p class="d">Gera e envia o link da pré-consulta, acompanha quem já respondeu e lembra quem está atrasado. Não mostra nenhuma resposta clínica.</p>
     <div class="tags"><span class="tag t-free">Sem login Google</span><span class="tag t-pin">Senha da recepção</span></div>
-    <div class="btns"><a class="btn" href="https://adrianofabri.github.io/preconsulta/recepcao/" target="_blank" rel="noopener">Abrir Recepção</a><button class="btn ghost" id="cp-recep" type="button">Copiar link</button><a class="btn ghost" id="wa-recep" target="_blank" rel="noopener">Enviar pelo WhatsApp</a></div>
+    <div class="btns"><a class="btn" href="https://adrianofabri.github.io/preconsulta/recepcao/" target="_blank" rel="noopener">Abrir Recepção</a><button class="btn ghost" id="cp-recep" type="button"><svg class="i"><use href="#i-copia"/></svg><span>Copiar link</span></button><a class="btn ghost" id="wa-recep" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp</a></div>
   </article>
   <article class="card">
-    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg></div>
+    <div class="top"><div class="ico"><svg class="i"><use href="#i-painel"/></svg></div>
       <div><h3>Painel do Médico</h3><p class="sub">Só você</p></div></div>
     <p class="d">Respostas completas, EFCA, alertas de segurança GLP-1, texto pronto para o Tribe e PDF. Também gera links.</p>
     <div class="tags"><span class="tag t-google">Login adriano.nutro</span></div>
     <div class="btns"><a class="btn" href="https://script.google.com/macros/s/AKfycby88WKaID-1AbBRJ9qfDWg2q2TLLtlyacEQKEhZp0hj0S4qeAGTE1j_Mm1nqWGI2muzBw/exec" target="_blank" rel="noopener">Abrir Painel</a></div>
   </article>
 </div>
+</section>
 
-<div class="sec"><h2>Protocolo Tirzepatida</h2><span>aplicações semanais, peso e circunferência</span></div>
+<section aria-labelledby="s-tirze">
+<div class="sec"><h2 id="s-tirze">Protocolo Tirzepatida</h2><span>aplicações semanais, peso e circunferência</span></div>
 <div class="grid">
   <article class="card">
-    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4M17 7l3-3M19 9 8.7 19.3a1 1 0 0 1-1.4 0L4.7 16.7a1 1 0 0 1 0-1.4L15 5M9 11l4 4M5 19l-3 3M14 4l6 6"/></svg></div>
-      <div><h3>Protocolo Tirzepatida 2.0</h3><p class="sub">Dashboard, curvas, PDF e calculadora metabólica</p></div></div>
-    <p class="d">Registro de aplicações com dose em UI, lote e validade, gráficos de peso e circunferência, mini anamnese de evolução e relatório em PDF.</p>
+    <div class="top"><div class="ico"><svg class="i"><use href="#i-tirze"/></svg></div>
+      <div><h3>Protocolo Tirzepatida 2.0</h3><p class="sub">Dashboard, curvas, PDF e evolução</p></div></div>
+    <p class="d">Registro de aplicações com dose em UI, lote e validade, gráficos de peso e circunferência, perfil de resposta, mini anamnese de evolução e relatório em PDF.</p>
     <div class="tags"><span class="tag t-free">Sem login Google</span><span class="tag t-pin">Senha do app</span></div>
-    <div class="btns"><a class="btn" href="tirzepatida/" target="_blank" rel="noopener">Abrir 2.0</a><a class="btn ghost" href="tirzepatida/calculadora.html" target="_blank" rel="noopener">Calculadora</a></div>
+    <div class="btns"><a class="btn" href="tirzepatida/" target="_blank" rel="noopener">Abrir Protocolo 2.0</a></div>
+  </article>
+  <article class="card">
+    <div class="top"><div class="ico"><svg class="i"><use href="#i-calc"/></svg></div>
+      <div><h3>Calculadora Metabólica</h3><p class="sub">TMB, GET e prescrição energética</p></div></div>
+    <p class="d">Harris-Benedict ou Katch-McArdle, déficit ou superávit, orientações e advertências. Salva a avaliação no cadastro do paciente do protocolo.</p>
+    <div class="tags"><span class="tag t-free">Sem login Google</span><span class="tag t-pin">Senha do app</span></div>
+    <div class="btns"><a class="btn" href="tirzepatida/calculadora.html" target="_blank" rel="noopener">Abrir Calculadora</a></div>
   </article>
 </div>
+</section>
 
-<div class="sec"><h2>Gestão</h2><span>finanças e relatórios ao paciente</span></div>
+<section aria-labelledby="s-gest">
+<div class="sec"><h2 id="s-gest">Gestão</h2><span>finanças e relatórios ao paciente</span></div>
 <div class="grid">
   <article class="card">
-    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></div>
+    <div class="top"><div class="ico"><svg class="i"><use href="#i-fin"/></svg></div>
       <div><h3>Financeiro do Consultório</h3><p class="sub">Receitas, despesas, taxas e imposto</p></div></div>
     <p class="d">Lançamentos com taxas PagBank, imposto de 6%, despesas fixas, gráficos mensais, relatório em PDF e tabela de preços para o paciente.</p>
     <div class="tags"><span class="tag t-google">Login adriano.nutro</span><span class="tag t-pin">PIN de 4 dígitos</span></div>
     <div class="btns"><a class="btn" href="https://script.google.com/macros/s/AKfycbwO797VFxIZabeqJtHt90NMCU5tHv0UpRmULhBIZSX5tIsKgKacLeZzb0kiLuheZkQN/exec" target="_blank" rel="noopener">Abrir Financeiro</a></div>
   </article>
-  <article class="card">
-    <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+  <article class="card" id="jornada">
+    <div class="top"><div class="ico"><svg class="i"><use href="#i-jorn"/></svg></div>
       <div><h3>Jornada do Paciente</h3><p class="sub">Painel de evolução entregue a cada retorno</p></div></div>
-    <p class="d">Feita pelo Claude: digite <code>/jornada Nome do Paciente</code> (ou <code>/jornada novos</code>). A jornada fica salva na pasta do paciente no Drive.</p>
+    <p class="d">Feita pelo Claude: digite <code>/jornada Nome do Paciente</code> ou <code>/jornada novos</code>. A jornada fica salva na pasta do paciente no Drive.</p>
     <div class="tags"><span class="tag t-who">Pelo Claude</span><span class="tag t-who">Verificação diária às 19h</span></div>
-    <div class="btns"><a class="btn ghost" href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude</a><a class="btn ghost" href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener">Abrir Drive</a></div>
+    <div class="btns"><a class="btn" href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude</a><a class="btn ghost" href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener"><svg class="i"><use href="#i-drive"/></svg>Drive</a></div>
   </article>
 </div>
+</section>
 
-<div class="sec"><h2>Automações</h2><span>rodam sozinhas no Mac mini · ajuste horário e dias quando quiser</span></div>
+<section aria-labelledby="s-auto">
+<div class="sec"><h2 id="s-auto">Automações</h2><span>rodam sozinhas no Mac mini</span></div>
 <div class="auto">
-  <div class="ta" data-nome="Anexar documentos novos dos pacientes no TribeMD" data-h="05:45" data-d="todos"><b>5h45</b><span>Anexa documentos novos dos pacientes no TribeMD</span><em>Todos os dias</em></div>
-  <div class="ta" data-nome="Verificação do login do TribeMD (aviso no celular se estiver deslogado)" data-h="18:00" data-d="todos"><b>18h00</b><span>Confere o login do TribeMD e avisa no celular se caiu</span><em>Todos os dias</em></div>
-  <div class="ta" data-nome="Verificação diária da Jornada do Paciente" data-h="19:00" data-d="todos"><b>19h00</b><span>Verifica e atualiza as Jornadas dos pacientes</span><em>Todos os dias</em></div>
+  <div class="ta" data-nome="Anexar documentos novos dos pacientes no TribeMD" data-h="05:45"><div class="hr">5h45</div><div class="tx"><span>Anexa documentos novos dos pacientes no TribeMD</span><em>Todos os dias</em></div></div>
+  <div class="ta" data-nome="Verificação do login do TribeMD (aviso no celular se estiver deslogado)" data-h="18:00"><div class="hr">18h00</div><div class="tx"><span>Confere o login do TribeMD e avisa no celular se caiu</span><em>Todos os dias</em></div></div>
+  <div class="ta" data-nome="Verificação diária da Jornada do Paciente" data-h="19:00"><div class="hr">19h00</div><div class="tx"><span>Verifica e atualiza as Jornadas dos pacientes</span><em>Todos os dias</em></div></div>
 </div>
-<div class="ajuste" id="ajuste" hidden>
-  <div class="aj-tit">Alterar: <b id="aj-nome"></b></div>
+</section>
+
+<footer>
+  <span><b>Dica:</b> no celular, Compartilhar → Adicionar à Tela de Início para abrir a Central como um app.</span>
+  <span>Senhas não ficam nesta página · os dados dos pacientes ficam só na conta Google.</span>
+</footer>
+</div>
+
+<div class="veu" id="veu" hidden></div>
+<div class="ajuste" id="ajuste" role="dialog" aria-modal="true" aria-labelledby="aj-nome" hidden>
+  <div class="aj-h"><div><span class="eyebrow">Alterar automação</span><b id="aj-nome"></b></div><button class="aj-x" id="aj-x" type="button" aria-label="Fechar">×</button></div>
   <div class="aj-row">
-    <label>Novo horário <input type="time" id="aj-h"></label>
-    <label>Dias
+    <label class="f">Novo horário<input type="time" id="aj-h"></label>
+    <label class="f">Dias
       <select id="aj-d">
         <option value="todos">Todos os dias</option>
         <option value="uteis">Segunda a sexta</option>
@@ -185,49 +298,63 @@ footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:v
     </label>
   </div>
   <div class="dias" id="aj-dias" hidden>
-    <label><input type="checkbox" value="segunda">Seg</label><label><input type="checkbox" value="terça">Ter</label><label><input type="checkbox" value="quarta">Qua</label><label><input type="checkbox" value="quinta">Qui</label><label><input type="checkbox" value="sexta">Sex</label><label><input type="checkbox" value="sábado">Sáb</label><label><input type="checkbox" value="domingo">Dom</label>
+    <label><input type="checkbox" value="segunda"><span>Seg</span></label><label><input type="checkbox" value="terça"><span>Ter</span></label><label><input type="checkbox" value="quarta"><span>Qua</span></label><label><input type="checkbox" value="quinta"><span>Qui</span></label><label><input type="checkbox" value="sexta"><span>Sex</span></label><label><input type="checkbox" value="sábado"><span>Sáb</span></label><label><input type="checkbox" value="domingo"><span>Dom</span></label>
   </div>
   <label class="pausa"><input type="checkbox" id="aj-pausar"> Pausar esta automação</label>
-  <div class="btns"><button class="btn" id="aj-ok" type="button">Pedir alteração ao Claude</button><button class="btn ghost" id="aj-x" type="button">Cancelar</button></div>
-  <p class="aj-nota">Abre o Claude com o pedido pronto; é só enviar. A tarefa agendada é alterada por lá e o horário aqui na Central é atualizado na próxima revisão da página.</p>
+  <div class="btns"><button class="btn" id="aj-ok" type="button">Pedir alteração ao Claude</button></div>
+  <p class="aj-nota" id="aj-nota">Abre o Claude com o pedido pronto; é só enviar. O horário aqui na Central é atualizado depois.</p>
 </div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<footer>
-  <span>Central de Aplicativos · uso interno do consultório · no celular: Compartilhar → Adicionar à Tela de Início</span>
-  <span>Senhas não ficam nesta página · dados dos pacientes ficam só na conta Google</span>
-</footer>
-</div>
 <script>
 (function(){
-  var cards=document.querySelectorAll(".auto .ta"),box=document.getElementById("ajuste"),atual=null;
-  cards.forEach(function(c){var b=document.createElement("button");b.type="button";b.className="alt";b.textContent="Alterar horário ou dias";
-    b.onclick=function(){atual=c;document.getElementById("aj-nome").textContent=c.dataset.nome;document.getElementById("aj-h").value=c.dataset.h;
-      document.getElementById("aj-d").value="todos";document.getElementById("aj-dias").hidden=true;document.getElementById("aj-pausar").checked=false;
-      box.hidden=false;box.scrollIntoView({behavior:"smooth",block:"center"})};c.appendChild(b)});
-  document.getElementById("aj-d").onchange=function(){document.getElementById("aj-dias").hidden=this.value!=="pers"};
-  document.getElementById("aj-x").onclick=function(){box.hidden=true};
-  document.getElementById("aj-ok").onclick=function(){
-    if(!atual)return;var nome=atual.dataset.nome,msg;
-    if(document.getElementById("aj-pausar").checked){msg="Quero pausar a tarefa agendada \""+nome+"\" que roda no Mac mini, até eu pedir para reativar."}
-    else{var hr=document.getElementById("aj-h").value||atual.dataset.h,sel=document.getElementById("aj-d").value,dias;
-      if(sel==="todos")dias="todos os dias";else if(sel==="uteis")dias="de segunda a sexta";else if(sel==="uteis-sab")dias="de segunda a sábado";
-      else{var v=[].map.call(document.querySelectorAll("#aj-dias input:checked"),function(i){return i.value});if(!v.length){document.querySelector(".aj-nota").textContent="Escolha pelo menos um dia.";return}dias="nos dias "+(v.length>1?v.slice(0,-1).join(", ")+" e "+v[v.length-1]:v[0])}
-      msg="Quero alterar a tarefa agendada \""+nome+"\" que roda no Mac mini: passar a rodar "+dias+" às "+hr.replace(":","h")+" (horário de Cuiabá). Depois, atualize também o horário na Central de Aplicativos (adrianofabri.github.io)."}
-    window.open("https://claude.ai/new?q="+encodeURIComponent(msg),"_blank","noopener");box.hidden=true};
-})();
-(function(){
-  var url="https://adrianofabri.github.io/preconsulta/recepcao/",b=document.getElementById("cp-recep");
-  document.getElementById("wa-recep").href="https://wa.me/?text="+encodeURIComponent("Link da Recepção (pré-consulta): "+url);
-  b.onclick=function(){
-    var ok=function(){b.textContent="Link copiado ✓";setTimeout(function(){b.textContent="Copiar link"},1800)};
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(ok,function(){fb()})}else fb();
-    function fb(){var t=document.createElement("textarea");t.value=url;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();try{document.execCommand("copy");ok()}catch(e){}t.remove()}
+  var $=function(id){return document.getElementById(id)};
+  var toastT;
+  function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toastT);toastT=setTimeout(function(){e.classList.remove("on")},2000)}
+
+  /* saudação e data */
+  var d=new Date(),h=d.getHours(),saud=(h<12?"Bom dia":h<18?"Boa tarde":"Boa noite")+", Dr. Adriano";
+  var dataTxt=d.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long"});
+  $("data").textContent=dataTxt.charAt(0).toUpperCase()+dataTxt.slice(1); $("saud").textContent=saud;
+  $("greet-m").textContent=saud+" · "+dataTxt;
+
+  /* copiar link da recepção / WhatsApp */
+  var url="https://adrianofabri.github.io/preconsulta/recepcao/",cb=$("cp-recep");
+  $("wa-recep").href="https://wa.me/?text="+encodeURIComponent("Link da Recepção (pré-consulta): "+url);
+  cb.onclick=function(){
+    function ok(){toast("Link da Recepção copiado");var s=cb.querySelector("span");s.textContent="Copiado ✓";setTimeout(function(){s.textContent="Copiar link"},1800)}
+    function fb(){var t=document.createElement("textarea");t.value=url;t.setAttribute("readonly","");t.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(t);t.select();t.setSelectionRange(0,url.length);var r=false;try{r=document.execCommand("copy")}catch(e){}t.remove();r?ok():toast("Não foi possível copiar")}
+    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(url).then(ok,fb)}else fb();
   };
-})();
-(function(){
-  var d=new Date(),h=d.getHours();
-  document.getElementById("data").textContent=d.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long"});
-  document.getElementById("saud").textContent=(h<12?"Bom dia":h<18?"Boa tarde":"Boa noite")+", Dr. Adriano";
+
+  /* automações */
+  var box=$("ajuste"),veu=$("veu"),atual=null,nota=$("aj-nota"),NOTA=nota.textContent;
+  function abrir(c){
+    atual=c;$("aj-nome").textContent=c.dataset.nome;$("aj-h").value=c.dataset.h;$("aj-d").value="todos";$("aj-dias").hidden=true;$("aj-pausar").checked=false;
+    [].forEach.call(document.querySelectorAll("#aj-dias input"),function(i){i.checked=false});
+    nota.textContent=NOTA;nota.className="aj-nota";
+    veu.hidden=false;box.hidden=false;requestAnimationFrame(function(){veu.classList.add("on");box.classList.add("on")});
+    document.body.style.overflow="hidden";setTimeout(function(){$("aj-h").focus({preventScroll:true})},250);
+  }
+  function fechar(){veu.classList.remove("on");box.classList.remove("on");document.body.style.overflow="";setTimeout(function(){veu.hidden=true;box.hidden=true},220);if(atual&&atual._btn)atual._btn.focus({preventScroll:true})}
+  [].forEach.call(document.querySelectorAll(".auto .ta"),function(c){
+    var b=document.createElement("button");b.type="button";b.className="alt";b.innerHTML='<svg class="i"><use href="#i-relogio"/></svg>Alterar horário';
+    b.onclick=function(){abrir(c)};c._btn=b;c.appendChild(b);
+  });
+  $("aj-d").onchange=function(){$("aj-dias").hidden=this.value!=="pers"};
+  $("aj-x").onclick=fechar; veu.onclick=fechar;
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!box.hidden)fechar()});
+  $("aj-ok").onclick=function(){
+    if(!atual)return;var nome=atual.dataset.nome,msg;
+    if($("aj-pausar").checked){msg="Quero pausar a tarefa agendada \""+nome+"\" que roda no Mac mini, até eu pedir para reativar."}
+    else{var hr=$("aj-h").value||atual.dataset.h,sel=$("aj-d").value,dias;
+      if(sel==="todos")dias="todos os dias";else if(sel==="uteis")dias="de segunda a sexta";else if(sel==="uteis-sab")dias="de segunda a sábado";
+      else{var v=[].map.call(document.querySelectorAll("#aj-dias input:checked"),function(i){return i.value});
+        if(!v.length){nota.textContent="Escolha pelo menos um dia.";nota.className="aj-nota err";return}
+        dias="nos dias "+(v.length>1?v.slice(0,-1).join(", ")+" e "+v[v.length-1]:v[0])}
+      msg="Quero alterar a tarefa agendada \""+nome+"\" que roda no Mac mini: passar a rodar "+dias+" às "+hr.replace(":","h")+" (horário de Cuiabá). Depois, atualize também o horário na Central de Aplicativos (adrianofabri.github.io)."}
+    window.open("https://claude.ai/new?q="+encodeURIComponent(msg),"_blank","noopener");fechar();
+  };
 })();
 </script>
 </body>
