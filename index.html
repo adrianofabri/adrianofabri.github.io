@@ -33,7 +33,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .wrap{max-width:1080px;margin:0 auto;padding:calc(24px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(56px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left))}
 
 /* topo */
-.hero{position:relative;display:flex;align-items:center;gap:18px;padding:22px 24px;border-radius:24px;background:linear-gradient(135deg,#fffdf9 0%,#f7efdf 100%);border:1px solid var(--line2);box-shadow:var(--sh);overflow:hidden}
+.hero{position:relative;display:flex;align-items:center;gap:18px;padding:22px 24px;border-radius:24px;background:linear-gradient(135deg,#fffdf9 0%,#f7efdf 100%);border:1px solid var(--line2);box-shadow:var(--sh);overflow:hidden;overflow:clip}
 .hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:1px solid rgba(184,145,63,.22);pointer-events:none}
 .hero::before{content:"";position:absolute;right:-20px;top:-100px;width:260px;height:260px;border-radius:50%;border:1px solid rgba(184,145,63,.14);pointer-events:none}
 .hero img{width:76px;height:76px;border-radius:50%;flex:none;background:#fff;box-shadow:0 0 0 1px var(--line2),0 4px 14px rgba(60,40,10,.10)}
@@ -88,7 +88,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 code{font-family:ui-monospace,Menlo,monospace;font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:6px;word-break:break-word}
 
 /* cartão digital */
-.cartao{position:relative;display:flex;align-items:center;gap:18px;margin:16px 0 0;padding:18px 20px;border-radius:var(--r);background:linear-gradient(135deg,#2a2218 0%,#3b2f1d 100%);color:#f6efe2;box-shadow:0 8px 26px rgba(34,29,22,.22);overflow:hidden}
+.cartao{position:relative;display:flex;align-items:center;gap:18px;margin:16px 0 0;padding:18px 20px;border-radius:var(--r);background:linear-gradient(135deg,#2a2218 0%,#3b2f1d 100%);color:#f6efe2;box-shadow:0 8px 26px rgba(34,29,22,.22);overflow:hidden;overflow:clip}
 .cartao::after{content:"";position:absolute;right:-50px;bottom:-70px;width:200px;height:200px;border-radius:50%;border:1px solid rgba(217,192,138,.25);pointer-events:none}
 .cartao .ic{flex:none;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:rgba(217,192,138,.16);color:#e4c98f}
 .cartao .ic svg.i{width:26px;height:26px}
