@@ -357,7 +357,7 @@ footer b{color:var(--ink);font-weight:600}
   };
 
   /* cartão digital: compartilhar */
-  var urlC="https://adrianofabri.github.io/cartao-dr-adriano/",txtC="Cartão digital do Dr. Adriano Fabri Domingues · Nutrologia: ";
+  var urlC="https://adrianofabri.github.io/cartao-dr-adriano/",txtC="Médico · CRM-MT 8757. Agendamentos e contatos: ";
   $("wa-cartao").href="https://wa.me/?text="+encodeURIComponent(txtC+urlC);
   function copiarC(btn){
     function ok(){toast("Link do cartão copiado");if(btn){var s=btn.querySelector("span");if(s){s.textContent="Copiado ✓";setTimeout(function(){s.textContent="Copiar link"},1800)}}}
@@ -366,7 +366,7 @@ footer b{color:var(--ink);font-weight:600}
   }
   $("cp-cartao").onclick=function(){copiarC(this)};
   $("sh-cartao").onclick=function(){
-    if(navigator.share){navigator.share({title:"Dr. Adriano Fabri Domingues",text:txtC.replace(/: $/,""),url:urlC}).catch(function(e){if(e&&e.name!=="AbortError")copiarC($("cp-cartao"))})}
+    if(navigator.share){navigator.share({title:"Dr. Adriano Fabri Domingues",text:txtC.trim(),url:urlC}).catch(function(e){if(e&&e.name!=="AbortError")copiarC($("cp-cartao"))})}
     else copiarC($("cp-cartao"));
   };
 
