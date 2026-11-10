@@ -97,6 +97,13 @@ code{font-family:ui-monospace,Menlo,monospace;font-size:.8rem;background:var(--a
 .cartao h2{font:400 1.25rem/1.2 var(--f-display);margin:2px 0 2px;color:var(--ink)}
 .cartao p{margin:0;font-size:.84rem;color:var(--muted)}
 .cartao .btns{flex:none;margin:0;padding:0;position:relative;z-index:1}
+.cartao{flex-wrap:wrap}
+.envio{flex:1 1 100%;display:flex;gap:10px;align-items:center;margin:2px 0 0;padding-top:14px;border-top:1px dashed var(--line2);position:relative;z-index:1}
+.envio label{font-size:.78rem;font-weight:600;color:var(--muted);white-space:nowrap}
+.envio input{flex:1;min-width:0;min-height:44px;font:500 1rem var(--f-body);padding:10px 12px;border:1px solid var(--line2);border-radius:12px;background:#fff;color:var(--ink);letter-spacing:.02em}
+.envio input::placeholder{color:#b5ab9a}
+.envio input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.envio .btn{flex:none}
 
 /* fluxo */
 .fluxo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 14px;padding:0;list-style:none;counter-reset:s}
@@ -154,6 +161,10 @@ footer b{color:var(--ink);font-weight:600}
   .cartao .tx{flex:1 1 calc(100% - 64px)}
   .cartao .btns{flex:1 1 100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}
   .cartao .btns .btn{width:100%}
+  .envio{flex-wrap:wrap;gap:8px}
+  .envio label{flex:1 1 100%}
+  .envio input{font-size:16px}
+  .envio .btn{flex:1 1 100%}
   body{font-size:15.5px}
   .wrap{padding:calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left))}
   .hero{padding:18px;gap:14px;border-radius:22px;align-items:center}
@@ -234,6 +245,11 @@ footer b{color:var(--ink);font-weight:600}
     <a class="btn ghost" id="wa-cartao" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp</a>
     <button class="btn ghost" id="cp-cartao" type="button"><svg class="i"><use href="#i-copia"/></svg><span>Copiar link</span></button>
   </div>
+  <form class="envio" id="f-env" autocomplete="off" novalidate>
+    <label for="w-pac">Enviar direto ao paciente</label>
+    <input id="w-pac" type="tel" inputmode="tel" placeholder="(65) 99999-9999" maxlength="16" aria-describedby="w-dica">
+    <button class="btn" type="submit"><svg class="i"><use href="#i-wa"/></svg>Enviar ao paciente</button>
+  </form>
 </section>
 
 <section aria-labelledby="s-pre">
@@ -369,6 +385,23 @@ footer b{color:var(--ink);font-weight:600}
     if(navigator.share){navigator.share({title:"Dr. Adriano Fabri Domingues",text:txtC.trim(),url:urlC}).catch(function(e){if(e&&e.name!=="AbortError")copiarC($("cp-cartao"))})}
     else copiarC($("cp-cartao"));
   };
+
+  /* cartão: enviar direto ao WhatsApp do paciente */
+  var wIn=$("w-pac");
+  function soDig(s){var x=String(s||"").replace(/\D/g,"");if(x.length>11&&x.indexOf("55")===0)x=x.slice(2);return x.slice(0,11)}
+  wIn.addEventListener("input",function(){
+    var x=soDig(this.value),f=x;
+    if(x.length>2)f="("+x.slice(0,2)+") "+x.slice(2);
+    if(x.length>6)f="("+x.slice(0,2)+") "+(x.length===11?x.slice(2,7)+"-"+x.slice(7):x.slice(2,6)+"-"+x.slice(6));
+    this.value=f;
+  });
+  $("f-env").addEventListener("submit",function(e){
+    e.preventDefault();
+    var x=soDig(wIn.value);
+    if(x.length!==10&&x.length!==11){toast("Confira o número: DDD + celular");wIn.focus();return}
+    window.open("https://wa.me/55"+x+"?text="+encodeURIComponent(txtC+urlC),"_blank","noopener");
+    wIn.value="";toast("Abrindo o WhatsApp do paciente…");
+  });
 
   /* automações */
   var box=$("ajuste"),veu=$("veu"),atual=null,nota=$("aj-nota"),NOTA=nota.textContent;
