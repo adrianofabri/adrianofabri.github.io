@@ -88,19 +88,15 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 code{font-family:ui-monospace,Menlo,monospace;font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:6px;word-break:break-word}
 
 /* cartão digital */
-.cartao{position:relative;display:flex;align-items:center;gap:18px;margin:16px 0 0;padding:18px 20px;border-radius:var(--r);background:linear-gradient(135deg,#2a2218 0%,#3b2f1d 100%);color:#f6efe2;box-shadow:0 8px 26px rgba(34,29,22,.22);overflow:hidden;overflow:clip}
-.cartao::after{content:"";position:absolute;right:-50px;bottom:-70px;width:200px;height:200px;border-radius:50%;border:1px solid rgba(217,192,138,.25);pointer-events:none}
-.cartao .ic{flex:none;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:rgba(217,192,138,.16);color:#e4c98f}
+.cartao{position:relative;display:flex;align-items:center;gap:18px;margin:16px 0 0;padding:18px 20px;border-radius:var(--r);background:linear-gradient(135deg,#fffdf9 0%,#f7efdf 100%);border:1px solid var(--gold-l);box-shadow:var(--sh);overflow:hidden;overflow:clip}
+.cartao::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(180deg,#c9a352,#8a6624)}
+.cartao::after{content:"";position:absolute;right:-50px;top:-70px;width:200px;height:200px;border-radius:50%;border:1px solid rgba(184,145,63,.22);pointer-events:none}
+.cartao .ic{flex:none;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#a67c2e,#8a6624);color:#fff;box-shadow:0 4px 10px rgba(138,102,36,.28)}
 .cartao .ic svg.i{width:26px;height:26px}
 .cartao .tx{flex:1;min-width:0;position:relative;z-index:1}
-.cartao .eyebrow{color:#d9c08a}
-.cartao h2{font:400 1.25rem/1.2 var(--f-display);margin:2px 0 2px;color:#fff}
-.cartao p{margin:0;font-size:.84rem;color:#d8ccb6}
+.cartao h2{font:400 1.25rem/1.2 var(--f-display);margin:2px 0 2px;color:var(--ink)}
+.cartao p{margin:0;font-size:.84rem;color:var(--muted)}
 .cartao .btns{flex:none;margin:0;padding:0;position:relative;z-index:1}
-.cartao .btn{background:linear-gradient(135deg,#d9b866,#b8913f);border-color:#c9a352;color:#22190c}
-.cartao .btn:hover{background:#e4c98f}
-.cartao .btn.ghost{background:rgba(255,255,255,.06);border-color:rgba(217,192,138,.45);color:#f0dfb8}
-.cartao .btn.ghost:hover{background:rgba(255,255,255,.12)}
 
 /* fluxo */
 .fluxo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 14px;padding:0;list-style:none;counter-reset:s}
