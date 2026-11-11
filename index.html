@@ -314,8 +314,9 @@ footer b{color:var(--ink);font-weight:600}
 </section>
 
 <section aria-labelledby="s-auto">
-<div class="sec"><h2 id="s-auto">Automações</h2><span>rodam sozinhas no Mac mini</span></div>
+<div class="sec"><h2 id="s-auto">Automações</h2><span>rodam sozinhas no MacBook Pro · quarta e domingo</span></div>
 <div class="auto">
+  <div class="ta" data-nome="Organizar Drive dos pacientes" data-h="14:00"><div class="hr">14h00</div><div class="tx"><span>Organiza no Drive os arquivos novos dos pacientes</span><em>Quarta e domingo</em></div></div>
   <div class="ta" data-nome="Anexar documentos novos dos pacientes no TribeMD" data-h="15:00"><div class="hr">15h00</div><div class="tx"><span>Anexa documentos novos dos pacientes no TribeMD</span><em>Quarta e domingo</em></div></div>
   <div class="ta" data-nome="Verificação do login do TribeMD (aviso no celular se estiver deslogado)" data-h="15:30"><div class="hr">15h30</div><div class="tx"><span>Confere o login do TribeMD e avisa no celular se caiu</span><em>Quarta e domingo</em></div></div>
   <div class="ta" data-nome="Verificação da Jornada do Paciente (quarta e domingo)" data-h="16:00"><div class="hr">16h00</div><div class="tx"><span>Verifica e atualiza as Jornadas dos pacientes</span><em>Quarta e domingo</em></div></div>
@@ -422,13 +423,13 @@ footer b{color:var(--ink);font-weight:600}
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!box.hidden)fechar()});
   $("aj-ok").onclick=function(){
     if(!atual)return;var nome=atual.dataset.nome,msg;
-    if($("aj-pausar").checked){msg="Quero pausar a tarefa agendada \""+nome+"\" que roda no Mac mini, até eu pedir para reativar."}
+    if($("aj-pausar").checked){msg="Quero pausar a tarefa agendada \""+nome+"\" que roda no MacBook Pro, até eu pedir para reativar."}
     else{var hr=$("aj-h").value||atual.dataset.h,sel=$("aj-d").value,dias;
       if(sel==="todos")dias="todos os dias";else if(sel==="uteis")dias="de segunda a sexta";else if(sel==="uteis-sab")dias="de segunda a sábado";
       else{var v=[].map.call(document.querySelectorAll("#aj-dias input:checked"),function(i){return i.value});
         if(!v.length){nota.textContent="Escolha pelo menos um dia.";nota.className="aj-nota err";return}
         dias="nos dias "+(v.length>1?v.slice(0,-1).join(", ")+" e "+v[v.length-1]:v[0])}
-      msg="Quero alterar a tarefa agendada \""+nome+"\" que roda no Mac mini: passar a rodar "+dias+" às "+hr.replace(":","h")+" (horário de Cuiabá). Depois, atualize também o horário na Central de Aplicativos (adrianofabri.github.io)."}
+      msg="Quero alterar a tarefa agendada \""+nome+"\" que roda no MacBook Pro: passar a rodar "+dias+" às "+hr.replace(":","h")+" (horário de Cuiabá). Depois, atualize também o horário na Central de Aplicativos (adrianofabri.github.io)."}
     window.open("https://claude.ai/new?q="+encodeURIComponent(msg),"_blank","noopener");fechar();
   };
 })();
