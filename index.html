@@ -195,7 +195,16 @@ footer b{color:var(--ink);font-weight:600}
 }
 .greet{display:none;margin-top:6px;font-size:.8rem;color:var(--accent);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.theme-btn{position:absolute;top:12px;right:12px;z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:var(--surface);color:var(--accent);cursor:pointer;display:grid;place-items:center;font-size:18px;line-height:1;box-shadow:var(--sh)}
+.theme-btn:hover{background:var(--accent-soft)}
+html[data-theme="dark"]{color-scheme:dark;--bg:#171410;--surface:#221e18;--surface2:#1d1a15;--ink:#f1eadc;--muted:#a79d8a;--line:#3a332a;--line2:#4a4136;--accent:#d9b56a;--accent-d:#e6c886;--accent-soft:#2e2718;--gold:#c9a352;--gold-l:#6b5a33;--ok:#5fbf8a;--ok-soft:#1d3327;--info:#7fb0dd;--info-soft:#1c2a38;--warn:#e7b35a;--warn-soft:#3a2d12;--sh:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);--sh-h:0 2px 4px rgba(0,0,0,.35),0 12px 32px rgba(0,0,0,.4)}
+html[data-theme="dark"] body{background:var(--bg)}
+html[data-theme="dark"] .hero{background:linear-gradient(135deg,#2a241b 0%,#1f1a14 100%)}
+html[data-theme="dark"] .cartao{background:linear-gradient(135deg,#2a241b 0%,#1f1a14 100%)}
+html[data-theme="dark"] .hero img{background:#2a241b}
+html[data-theme="dark"] .envio input{background:var(--surface2)}
 </style>
+<script>try{var t=localStorage.getItem("central-tema");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -225,6 +234,7 @@ footer b{color:var(--ink);font-weight:600}
     <span class="greet" id="greet-m"></span>
   </div>
   <div class="dt"><b id="data"></b><span id="saud"></span></div>
+  <button class="theme-btn" id="theme-toggle" type="button" aria-label="Alternar modo escuro" title="Modo escuro">🌙</button>
 </header>
 
 <nav class="quick" aria-label="Acesso rápido">
@@ -432,6 +442,13 @@ footer b{color:var(--ink);font-weight:600}
       msg="Quero alterar a tarefa agendada \""+nome+"\" que roda no MacBook Pro: passar a rodar "+dias+" às "+hr.replace(":","h")+" (horário de Cuiabá). Depois, atualize também o horário na Central de Aplicativos (adrianofabri.github.io)."}
     window.open("https://claude.ai/new?q="+encodeURIComponent(msg),"_blank","noopener");fechar();
   };
+})();
+</script>
+<script>
+(function(){var b=document.getElementById("theme-toggle");if(!b)return;
+function apply(d){if(d)document.documentElement.setAttribute("data-theme","dark");else document.documentElement.removeAttribute("data-theme");b.textContent=d?"☀️":"🌙";b.title=d?"Modo claro":"Modo escuro";var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",d?"#171410":"#f6f3ee");}
+apply(document.documentElement.getAttribute("data-theme")==="dark");
+b.addEventListener("click",function(){var d=document.documentElement.getAttribute("data-theme")!=="dark";apply(d);try{localStorage.setItem("central-tema",d?"dark":"light")}catch(e){}});
 })();
 </script>
 </body>
