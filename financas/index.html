@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light only">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Finanças">
+<meta name="theme-color" content="#f7f2ea">
+<title>Adriano Fabri Domingues · Gestão Financeira</title>
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="icone.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="locked">
+
+<div class="lock" id="lock" role="dialog" aria-modal="true" aria-labelledby="lock-msg">
+  <div class="lock-box">
+    <img src="logo.png" alt="Logomarca Adriano Fabri Domingues">
+    <p class="nome">Adriano Fabri Domingues</p>
+    <p class="tit">Gestão Financeira Simplificada</p>
+    <p class="lock-msg" id="lock-msg">Digite sua senha</p>
+    <div class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <p class="lock-err" id="lock-err" role="alert"></p>
+    <div class="pad" id="pad">
+      <button type="button">1</button><button type="button">2</button><button type="button">3</button>
+      <button type="button">4</button><button type="button">5</button><button type="button">6</button>
+      <button type="button">7</button><button type="button">8</button><button type="button">9</button>
+      <span></span><button type="button">0</button><button type="button" class="tx" data-k="b" aria-label="Apagar">⌫ Apagar</button>
+    </div>
+  </div>
+</div>
+
+<header class="topo">
+  <img alt="Logomarca Adriano Fabri Domingues" src="logo.png">
+  <p class="nome">Adriano Fabri Domingues</p>
+  <p class="tit">Gestão Financeira Simplificada</p>
+</header>
+
+<div class="wrap">
+  <div class="mesbar">
+    <h2>Resumo do mês</h2>
+    <div class="mesnav">
+      <button id="mes-ant" type="button" aria-label="Mês anterior">‹</button>
+      <div class="mes" id="mes-txt">—</div>
+      <button id="mes-prox" type="button" aria-label="Próximo mês">›</button>
+    </div>
+  </div>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">Honorários</div><div class="n" id="k-hon">–</div><div class="d" id="k-honq"></div></div>
+    <div class="kpi"><div class="l">Plantões extras</div><div class="n" id="k-ext">–</div><div class="d" id="k-extq"></div></div>
+    <div class="kpi"><div class="l">Impostos</div><div class="n" id="k-imp">–</div><div class="d" id="k-impp"></div></div>
+    <div class="kpi"><div class="l">Receita líquida</div><div class="n" id="k-liq">–</div><div class="d" id="k-bruta"></div></div>
+    <div class="kpi"><div class="l">Despesas</div><div class="n" id="k-desp">–</div><div class="d" id="k-despq"></div></div>
+    <div class="kpi res"><div class="l">Resultado</div><div class="n" id="k-res">–</div><div class="d" id="k-marg"></div></div>
+  </div>
+
+  <div class="caixa" aria-live="polite">
+    <div class="l">Caixa acumulado</div>
+    <div class="conta"><span id="cx-ant"></span><span id="cx-mes"></span></div>
+    <div class="tot"><div class="n" id="cx-tot">–</div><div class="d" id="cx-d"></div></div>
+  </div>
+
+  <div class="grid">
+    <section class="panel">
+      <div class="tabs" id="tipo">
+        <button type="button" data-t="Receita" aria-pressed="true">Receita</button>
+        <button type="button" data-t="Despesa" aria-pressed="false">Despesa</button>
+      </div>
+      <form id="f" autocomplete="off">
+        <div class="row2">
+          <label>Data<input id="f-data" type="date" required></label>
+          <label>Valor (R$)<input id="f-valor" class="money" type="text" inputmode="decimal" placeholder="0,00" required></label>
+        </div>
+        <label id="l-sub">Tipo de receita<select id="f-sub"><option>Honorário mensal</option><option>Plantão extra</option></select></label>
+        <label id="l-fonte">Fonte pagadora<select id="f-fonte"></select></label>
+        <label id="l-local" hidden>Local do plantão<input id="f-local" list="locais" maxlength="120" placeholder="Hospital / UPA"></label>
+        <datalist id="locais"></datalist>
+        <label id="l-cat" hidden>Categoria<select id="f-cat"></select></label>
+        <label id="l-desc" hidden>Descrição<input id="f-desc" maxlength="160" placeholder="Ex.: mercado, gasolina, academia"></label>
+        <label id="l-forma" hidden>Forma de pagamento<select id="f-forma"></select></label>
+        <p class="liq" id="f-liq"></p>
+        <label id="l-obs">Observações<textarea id="f-obs" placeholder="Opcional (ex.: ref. setembro)"></textarea></label>
+        <button class="btn" id="f-btn" type="submit">Salvar receita</button>
+        <p class="msg" id="f-msg"></p>
+      </form>
+    </section>
+
+    <div class="stack">
+      <section class="panel">
+        <div style="display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline;justify-content:space-between;margin-bottom:12px">
+          <h2 style="margin:0">Honorários do mês</h2><span class="hint" style="margin:0" id="fx-resumo"></span>
+        </div>
+        <div id="fx-lista" class="fx"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Evolução mensal</h2>
+        <div class="leg"><span><i style="background:var(--gold)"></i>Receita líquida</span><span><i style="background:var(--late)"></i>Despesas</span><span><i style="background:var(--ok)"></i>Resultado</span></div>
+        <div id="graf"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Por categoria no mês</h2>
+        <div class="cats">
+          <div><h3>Receitas</h3><div id="c-rec"></div></div>
+          <div><h3>Despesas</h3><div id="c-desp"></div></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="toolbar">
+          <input id="busca" type="search" placeholder="Buscar fonte, local, descrição ou categoria…">
+          <select id="filtro">
+            <option value="">Receitas e despesas</option>
+            <option value="Receita">Só receitas</option>
+            <option value="Despesa">Só despesas</option>
+          </select>
+          <button class="btn ghost small" id="atualizar" type="button">Atualizar</button>
+        </div>
+        <div id="lista"><div class="empty"><b>Carregando lançamentos…</b>Lendo a planilha do Google.</div></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<footer class="rodape"><span>Gestão Financeira Simplificada — Adriano Fabri Domingues</span><span>Uso pessoal · confidencial</span><span class="acoes"><button type="button" id="b-bloq">Bloquear</button></span></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let cfg={fontes:[],categorias:[],formas:[],locais:[],saldoInicial:0}, lanc=[], tipo="Receita", mes=null, confirmando=null, ocupado=false;
+
+const pad=n=>String(n).padStart(2,"0");
+const hojeISO=()=>{const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`};
+const br=s=>{const [y,m,d]=s.split("-");return `${d}/${m}`};
+const BRL=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
+const brl=n=>BRL.format(n||0);
+const pct=n=>(n*100).toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1})+"%";
+const pct0=n=>(n*100).toLocaleString("pt-BR",{maximumFractionDigits:2})+"%";
+const r2=n=>Math.round(n*100)/100;
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const MESES=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+const mesTxt=ym=>{const [y,m]=ym.split("-").map(Number);return `${MESES[m-1]} ${y}`};
+const mesMove=(ym,k)=>{let [y,m]=ym.split("-").map(Number);m+=k;while(m<1){m+=12;y--}while(m>12){m-=12;y++}return `${y}-${pad(m)}`};
+function num(v){let s=String(v??"").trim().replace(/[R$\s]/g,"");if(!s)return null;if(s.includes(","))s=s.replace(/\./g,"").replace(",",".");const n=Number(s);return isFinite(n)?n:null}
+
+/* ---------- servidor (Apps Script, protegido por senha) ---------- */
+const API="https://script.google.com/macros/s/AKfycby6fYAC-ZlGX32HbxJW7kVjAqg4U-I_lldUTxoCMzP1EGBugSF-XR0fDXmg-WalmYtU/exec";
+let senha="";
+async function post(fn,args,k){
+  let r;
+  try{r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({fn,args:args||[],k}),redirect:"follow"})}
+  catch(e){throw new Error("Sem conexão com o servidor. Verifique a internet e tente de novo.")}
+  if(!r.ok) throw new Error("Falha de conexão ("+r.status+").");
+  return r.json();
+}
+async function chamar(fn,...args){
+  if(!senha){bloquear();throw new Error("Digite a senha para continuar.")}
+  const j=await post(fn,args,senha);
+  if(j.ok) return j.data;
+  if(j.erro==="SENHA_INVALIDA"||j.erro==="BLOQUEADO"){bloquear(j.msg);throw new Error(j.msg||"Senha necessária.")}
+  throw new Error(j.erro||"Erro no servidor.");
+}
+const txtErro=e=>(e&&e.message?e.message:String(e)).replace(/^Error:\s*/,"").replace(/^Exception:\s*/,"");
+function aplicar(d){cfg=d;lanc=d.lanc||[];montarSelects();render()}
+async function atualizar(){
+  if(ocupado||!senha) return;
+  try{aplicar(await chamar("carregar"));$("banner").hidden=true}
+  catch(e){if(senha)alertBanner("Não foi possível carregar a planilha: "+txtErro(e))}
+}
+function alertBanner(t){$("banner").textContent=t;$("banner").hidden=false}
+
+/* ---------- formulário ---------- */
+function montarSelects(){
+  const fs=$("f-fonte").value, cs=$("f-cat").value, ps=$("f-forma").value;
+  $("f-fonte").innerHTML=cfg.fontes.map(f=>`<option value="${esc(f.nome)}">${esc(f.nome)} (${esc(f.regime)} ${pct0(f.aliquota)})</option>`).join("");
+  if(cfg.fontes.some(f=>f.nome===fs)) $("f-fonte").value=fs;
+  $("f-cat").innerHTML=`<option value="">Selecione…</option>`+cfg.categorias.map(c=>`<option>${esc(c)}</option>`).join("");
+  if(cfg.categorias.includes(cs)) $("f-cat").value=cs;
+  $("f-forma").innerHTML=cfg.formas.map(c=>`<option>${esc(c)}</option>`).join("");
+  if(cfg.formas.includes(ps)) $("f-forma").value=ps;
+  const locais=[...new Set(lanc.filter(l=>l.sub==="Plantão extra"&&l.fonte).map(l=>l.fonte))].sort((a,b)=>a.localeCompare(b,"pt-BR"));
+  $("locais").innerHTML=locais.map(n=>`<option value="${esc(n)}">`).join("");
+  calc();
+}
+function setTipo(t){
+  tipo=t; [...$("tipo").children].forEach(b=>b.setAttribute("aria-pressed",b.dataset.t===t?"true":"false"));
+  const rec=t==="Receita";
+  ["l-sub","l-obs"].forEach(id=>$(id).hidden=!rec);
+  ["l-cat","l-desc","l-forma"].forEach(id=>$(id).hidden=rec);
+  $("f-btn").textContent=rec?"Salvar receita":"Salvar despesa";
+  $("f-msg").textContent=""; calc();
+}
+$("tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setTipo(b.dataset.t)});
+const honorario=()=>$("f-sub").value==="Honorário mensal";
+function aliqAtual(){if(!honorario())return {regime:"PF",aliquota:0};return cfg.fontes.find(f=>f.nome===$("f-fonte").value)||{regime:"—",aliquota:0}}
+function calc(){
+  const rec=tipo==="Receita";
+  $("l-fonte").hidden=!(rec&&honorario()); $("l-local").hidden=!(rec&&!honorario());
+  if(!rec){$("f-liq").innerHTML="";return}
+  const v=num($("f-valor").value), a=aliqAtual(), imp=v?r2(v*a.aliquota):0;
+  $("f-liq").innerHTML=v?`Imposto ${a.regime} ${pct0(a.aliquota)}: <b class="neg">${brl(imp)}</b> · Líquido: <b>${brl(v-imp)}</b>`:`<span style="color:var(--muted)">${honorario()?`Regime ${esc(a.regime)} · imposto ${pct0(a.aliquota)}`:"Plantão extra · PF à vista · imposto 0%"}</span>`;
+}
+["f-valor","f-sub","f-fonte"].forEach(id=>$(id).addEventListener("input",calc));
+$("f-sub").addEventListener("change",calc);
+function msg(txt,ok){$("f-msg").textContent=txt;$("f-msg").className="msg "+(ok?"ok":"err")}
+
+$("f").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const data=$("f-data").value, valor=num($("f-valor").value);
+  if(!data) return msg("Informe a data.");
+  if(!(valor>0)) return msg("Informe um valor maior que zero.");
+  let l;
+  if(tipo==="Receita"){
+    const sub=$("f-sub").value, fonte=honorario()?$("f-fonte").value:$("f-local").value.trim();
+    if(!fonte) return msg(honorario()?"Cadastre as fontes pagadoras na aba Config.":"Informe o local do plantão.");
+    l={tipo,tipoReceita:sub,data,valor,fonte,obs:$("f-obs").value};
+  }else{
+    const cat=$("f-cat").value; if(!cat) return msg("Selecione a categoria.");
+    l={tipo,data,valor,categoria:cat,descricao:$("f-desc").value.trim(),forma:$("f-forma").value};
+  }
+  $("f-btn").disabled=true; ocupado=true; msg("Salvando…",true);
+  try{
+    aplicar(await chamar("salvarLancamento",l));
+    const ym=data.slice(0,7);
+    msg(`${tipo} de ${brl(valor)} registrada em ${br(data)}`+(ym!==mes?` (${mesTxt(ym)})`:"")+".",true);
+    $("f-valor").value="";$("f-desc").value="";$("f-obs").value="";calc();
+  }catch(err){msg(txtErro(err))}
+  $("f-btn").disabled=false; ocupado=false;
+});
+
+/* ---------- mês ---------- */
+function setMes(ym){mes=ym;$("mes-txt").textContent=mesTxt(ym);confirmando=null;render()}
+$("mes-ant").onclick=()=>setMes(mesMove(mes,-1));
+$("mes-prox").onclick=()=>setMes(mesMove(mes,1));
+
+function totais(ym){
+  const doMes=lanc.filter(l=>l.data.slice(0,7)===ym);
+  const rec=doMes.filter(l=>l.tipo==="Receita"), desp=doMes.filter(l=>l.tipo==="Despesa");
+  const s=(a,k)=>r2(a.reduce((t,l)=>t+(l[k]||0),0));
+  const hon=rec.filter(l=>l.sub==="Honorário mensal"), ext=rec.filter(l=>l.sub!=="Honorário mensal");
+  const bruta=s(rec,"bruto"), imp=s(rec,"imposto"), liq=r2(bruta-imp), d=s(desp,"bruto");
+  return {doMes,rec,desp,hon,ext,honB:s(hon,"bruto"),extB:s(ext,"bruto"),bruta,imp,liq,totDesp:d,res:r2(liq-d)};
+}
+function barras(grupos,cor){
+  const it=Object.entries(grupos).sort((a,b)=>b[1]-a[1]), max=it.length?it[0][1]:0, tot=it.reduce((t,x)=>t+x[1],0);
+  if(!it.length) return `<p class="hint" style="margin:0">Nada lançado.</p>`;
+  return it.map(([c,v])=>`<div class="bar"><span>${esc(c)}</span><span class="v">${brl(v)} <span style="color:var(--muted)">${pct(v/tot)}</span></span><span class="t"><i style="width:${Math.max(2,v/max*100)}%;background:var(${cor})"></i></span></div>`).join("");
+}
+const agrupa=(lista,fk,vk)=>{const g={};lista.forEach(l=>{const k=fk(l);g[k]=(g[k]||0)+(l[vk]||0)});return g};
+
+/* ---------- lista ---------- */
+$("busca").addEventListener("input",render); $("filtro").addEventListener("change",render);
+$("atualizar").addEventListener("click",atualizar);
+$("lista").addEventListener("click",async e=>{
+  const t=e.target.closest("[data-act]"); if(!t) return;
+  const {act,id}=t.dataset;
+  if(act==="del"){confirmando=id;render()}
+  else if(act==="cancel"){confirmando=null;render()}
+  else if(act==="ok"){
+    confirmando=null; ocupado=true; t.disabled=true;
+    try{aplicar(await chamar("excluirLancamento",id))}catch(err){alertBanner(txtErro(err))}
+    ocupado=false; render();
+  }
+});
+
+/* ---------- honorários por fonte ---------- */
+function renderFontes(T){
+  let rec=0,pend=0;
+  const linhas=cfg.fontes.map(f=>{
+    const ls=T.hon.filter(l=>l.fonte===f.nome), b=r2(ls.reduce((t,l)=>t+l.bruto,0)), lq=r2(ls.reduce((t,l)=>t+l.liquido,0));
+    if(ls.length) rec++; else pend++;
+    return `<div class="fx-it"><span>${esc(f.nome)}<span class="s">${esc(f.regime)} · imposto ${pct0(f.aliquota)}${ls.length?` · bruto ${brl(b)}`:""}</span></span><span class="v">${ls.length?brl(lq):"–"}</span>
+      ${ls.length?`<span class="st ok">recebido</span>`:`<span class="st pend">a receber</span>`}</div>`}).join("");
+  const ext=`<div class="fx-it"><span>Plantões extras<span class="s">PF · à vista · ${T.ext.length} plantão${T.ext.length===1?"":"ões"} no mês</span></span><span class="v">${brl(T.extB)}</span><span class="st neu">PF 0%</span></div>`;
+  $("fx-lista").innerHTML=(linhas||`<p class="hint" style="margin:0">Cadastre as fontes pagadoras na aba Config da planilha.</p>`)+ext;
+  $("fx-resumo").textContent=cfg.fontes.length?`${rec} de ${cfg.fontes.length} recebido${rec===1?"":"s"}`+(pend?` · ${pend} a receber`:" · tudo recebido"):"";
+}
+
+/* ---------- gráfico de evolução ---------- */
+function grafico(){
+  const ms=[];for(let k=11;k>=0;k--) ms.push(mesMove(mes,-k));
+  const d=ms.map(m=>{const t=totais(m);return {m,liq:t.liq,desp:t.totDesp,res:t.res}});
+  const W=640,H=220,L=62,R=10,T=10,B=26,w=W-L-R,h=H-T-B;
+  let mx=Math.max(1,...d.map(x=>Math.max(x.liq,x.desp,x.res))), mn=Math.min(0,...d.map(x=>x.res));
+  const step=niceStep((mx-mn)/4); mx=Math.ceil(mx/step)*step; mn=Math.floor(mn/step)*step;
+  const X=i=>L+i*(w/(d.length-1)), Y=v=>T+h-(v-mn)/(mx-mn)*h;
+  const k=v=>Math.abs(v)>=1000?(v/1000).toLocaleString("pt-BR",{maximumFractionDigits:1})+" mil":v.toLocaleString("pt-BR");
+  let g="";
+  for(let v=mn;v<=mx+1e-9;v+=step) g+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(${v===0?"--muted":"--line"})" stroke-width="${v===0?1:.7}"/><text x="${L-6}" y="${Y(v)+3}" text-anchor="end">R$ ${k(v)}</text>`;
+  d.forEach((x,i)=>{g+=`<text x="${X(i)}" y="${H-8}" text-anchor="middle" ${x.m===mes?'style="fill:var(--accent);font-weight:700"':''}>${MESES[Number(x.m.slice(5))-1].slice(0,3)}</text>`});
+  const linha=(key,cor,wd)=>`<polyline fill="none" stroke="var(${cor})" stroke-width="${wd}" stroke-linejoin="round" stroke-linecap="round" points="${d.map((x,i)=>X(i)+","+Y(x[key])).join(" ")}"/>`+
+    d.map((x,i)=>`<circle cx="${X(i)}" cy="${Y(x[key])}" r="${x.m===mes?4:2.6}" fill="var(${cor})"><title>${mesTxt(x.m)}: ${brl(x[key])}</title></circle>`).join("");
+  g+=linha("liq","--gold",2)+linha("desp","--late",2)+linha("res","--ok",2.6);
+  $("graf").innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Receita líquida, despesas e resultado dos últimos 12 meses">${g}</svg>`;
+}
+function niceStep(r){if(r<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(r))),f=r/p;return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*p}
+
+/* ---------- render ---------- */
+function render(){
+  if(!mes) return;
+  const T=totais(mes), A=totais(mesMove(mes,-1));
+  $("k-hon").textContent=brl(T.honB);
+  $("k-honq").textContent=`${T.hon.length} recebimento${T.hon.length===1?"":"s"}`;
+  $("k-ext").textContent=brl(T.extB);
+  $("k-extq").textContent=`${T.ext.length} plantão${T.ext.length===1?"":"ões"}`;
+  $("k-imp").textContent=brl(T.imp);
+  $("k-impp").textContent=T.bruta?pct(T.imp/T.bruta)+" da receita":"PJ 6% · PF 0%";
+  $("k-liq").textContent=brl(T.liq);
+  $("k-bruta").textContent="Bruta "+brl(T.bruta);
+  $("k-desp").textContent=brl(T.totDesp);
+  $("k-despq").textContent=`${T.desp.length} lançamento${T.desp.length===1?"":"s"}`;
+  $("k-res").textContent=brl(T.res); $("k-res").className="n "+(T.res<0?"neg":T.res>0?"pos":"");
+  const dif=r2(T.res-A.res);
+  $("k-marg").textContent=(T.liq?`Guardou ${pct(T.res/T.liq)}`:"Sem receitas")+(A.doMes.length?` · ${dif>=0?"+":"−"}${brl(Math.abs(dif))} vs. ${MESES[Number(mesMove(mes,-1).slice(5))-1]}`:"");
+
+  // caixa acumulado: saldo inicial + resultados de todos os meses anteriores + resultado do mês
+  const mesesAnt=[...new Set(lanc.map(l=>l.data.slice(0,7)).filter(m=>m&&m<mes))];
+  const cxAnt=r2((cfg.saldoInicial||0)+mesesAnt.reduce((t,m)=>t+totais(m).res,0)), cxTot=r2(cxAnt+T.res);
+  const mAnt=MESES[Number(mesMove(mes,-1).slice(5))-1], mAt=MESES[Number(mes.slice(5))-1];
+  $("cx-ant").innerHTML=`Sobra até ${mAnt}: <b class="${cxAnt<0?"neg":""}">${brl(cxAnt)}</b>`;
+  $("cx-mes").innerHTML=`${T.res<0?"−":"+"} Resultado de ${mAt}: <b class="${T.res<0?"neg":T.res>0?"pos":""}">${brl(Math.abs(T.res))}</b>`;
+  $("cx-tot").textContent=brl(cxTot); $("cx-tot").className="n "+(cxTot<0?"neg":"pos");
+  $("cx-d").textContent=mes===hojeISO().slice(0,7)?"saldo atual em caixa":`saldo ao fim de ${mAt}`;
+
+  $("c-rec").innerHTML=barras(agrupa(T.rec,l=>l.sub==="Honorário mensal"?l.fonte:"Plantões extras","bruto"),"--ok");
+  $("c-desp").innerHTML=barras(agrupa(T.desp,l=>l.categoria,"bruto"),"--late");
+  renderFontes(T); grafico();
+
+  const q=$("busca").value.trim().toLowerCase(), f=$("filtro").value;
+  const vis=T.doMes.filter(l=>(!f||l.tipo===f)&&(!q||[l.fonte,l.sub,l.descricao,l.categoria,l.forma,l.obs].join(" ").toLowerCase().includes(q)))
+    .sort((a,b)=>a.data<b.data?1:a.data>b.data?-1:0);
+
+  if(!T.doMes.length){$("lista").innerHTML=`<div class="empty"><b>Nenhum lançamento em ${mesTxt(mes)}</b>Registre receitas e despesas no painel ao lado.</div>`;return}
+  if(!vis.length){$("lista").innerHTML=`<div class="empty"><b>Nenhum lançamento encontrado</b>Ajuste a busca ou o filtro.</div>`;return}
+
+  $("lista").innerHTML=`<div class="tbl-wrap"><table><thead><tr><th>Data</th><th>Tipo</th><th>Fonte / categoria</th><th>Forma</th><th class="r">Valor</th><th class="r">Imposto</th><th class="r">Líquido</th><th></th></tr></thead><tbody>`+
+  vis.map(l=>{
+    const c=confirmando===l.id, id=esc(l.id), rec=l.tipo==="Receita";
+    const tit=rec?(l.sub==="Honorário mensal"?l.fonte:"Plantão extra"):l.categoria;
+    const det=rec?(l.sub==="Honorário mensal"?"Honorário mensal":l.fonte):l.descricao;
+    const forma=rec?(l.regime||"PF"):l.forma;
+    const liq=rec?l.liquido:l.bruto;
+    return `<tr><td class="mono">${br(l.data)}</td><td><span class="tag ${esc(l.tipo)}">${rec?"receita":"despesa"}</span></td>
+    <td>${esc(tit)}${det?`<span class="s">${esc(det)}</span>`:""}${l.obs?`<span class="s">${esc(l.obs)}</span>`:""}</td>
+    <td>${esc(forma)}</td><td class="mono r">${brl(l.bruto)}</td><td class="mono r">${rec&&l.imposto?brl(l.imposto):"–"}</td>
+    <td class="mono r ${rec?"":"neg"}">${rec?"":"−"}${brl(liq)}</td>
+    <td class="r" style="white-space:nowrap">${c?`<button class="x" data-act="ok" data-id="${id}" style="color:var(--late)">Excluir</button><button class="x" data-act="cancel">Manter</button>`:`<button class="x" data-act="del" data-id="${id}" aria-label="Excluir lançamento">✕</button>`}</td></tr>`}).join("")+
+  `</tbody></table></div>`;
+}
+
+$("f-data").value=hojeISO();
+setTipo("Receita");
+setMes(hojeISO().slice(0,7));
+
+/* ---------- senha de acesso ---------- */
+let pin="", pinOcupado=false, escondidoEm=0;
+const LOCK_INATIVO_MIN=15; // bloqueia se o app ficar em segundo plano por mais de 15 min
+function pinDots(){[...$("dots").children].forEach((d,i)=>d.classList.toggle("on",i<pin.length))}
+function pinErro(t){$("lock-err").textContent=t;const d=$("dots");d.classList.remove("erro");void d.offsetWidth;d.classList.add("erro");pin="";pinDots()}
+function bloquear(m){
+  senha=""; try{sessionStorage.removeItem("gfs_k")}catch(e){}
+  document.body.classList.add("locked"); pin=""; pinDots();
+  $("lock-msg").textContent="Digite sua senha"; $("lock-err").textContent=m||"";
+}
+async function pinCompleto(){
+  const v=pin; pinOcupado=true; $("lock-msg").textContent="Conferindo…";
+  try{
+    const j=await post("carregar",[],v);
+    if(j.ok){
+      senha=v; try{sessionStorage.setItem("gfs_k",v)}catch(e){}
+      document.body.classList.remove("locked"); $("lock-err").textContent=""; aplicar(j.data);
+    }else{$("lock-msg").textContent="Digite sua senha";pinErro(j.msg||j.erro||"Senha incorreta.")}
+  }catch(e){$("lock-msg").textContent="Digite sua senha";pinErro(txtErro(e))}
+  pinOcupado=false;
+}
+function pinTecla(k){
+  if(pinOcupado||!document.body.classList.contains("locked")) return;
+  if(k==="b"){pin=pin.slice(0,-1);pinDots();return}
+  if(!/^\d$/.test(k)||pin.length>=4) return;
+  pin+=k; pinDots(); $("lock-err").textContent="";
+  if(pin.length===4) setTimeout(pinCompleto,120);
+}
+$("pad").addEventListener("click",e=>{const b=e.target.closest("button");if(b)pinTecla(b.dataset.k||b.textContent.trim())});
+document.addEventListener("keydown",e=>{
+  if(!document.body.classList.contains("locked")) return;
+  if(/^\d$/.test(e.key)){pinTecla(e.key);e.preventDefault()}
+  else if(e.key==="Backspace"){pinTecla("b");e.preventDefault()}
+});
+$("b-bloq").onclick=()=>bloquear();
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){escondidoEm=Date.now();return}
+  if(senha&&escondidoEm&&Date.now()-escondidoEm>LOCK_INATIVO_MIN*60000) bloquear("Bloqueado por inatividade.");
+  else if(senha) atualizar();
+});
+(function(){let k="";try{k=sessionStorage.getItem("gfs_k")||""}catch(e){}
+  if(k){senha=k;document.body.classList.remove("locked");atualizar()}})();
+</script>
+</body>
+</html>
