@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<base target="_blank">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pré-Consulta · Painel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#f6f3ee;--surface:#fff;--surface2:#fbf8f3;--ink:#221d16;--muted:#6f675b;--line:#e6dfd3;--accent:#8a6624;--accent-ink:#fff;--accent-soft:#f4ecdc;--gold:#b8913f;
+--ok:#1f7a4d;--ok-soft:#e3f3ea;--warn:#9a6200;--warn-soft:#fbf0d9;--late:#b3261e;--late-soft:#fbe5e3;--info:#3f5f8a;--info-soft:#e6eef8;
+--f-display:"Marcellus",Georgia,serif;--f-body:"Instrument Sans",system-ui,sans-serif;--f-mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;gap:14px;align-items:center}
+.brand img{height:60px;width:auto}
+.mono{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--gold);display:grid;place-items:center;font-family:var(--f-display);color:var(--accent);font-size:1.3rem;flex:none}
+h1{font-family:var(--f-display);font-weight:400;font-size:1.7rem;margin:0;line-height:1.15}
+.sub{color:var(--muted);margin:2px 0 0;font-size:.88rem}
+.stats{display:flex;gap:26px;flex-wrap:wrap}
+.stat .n{font-weight:600;font-size:1.5rem;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat .l{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.panel h2{font-family:var(--f-display);font-weight:400;font-size:1.2rem;margin:0 0 12px}
+form{display:grid;gap:12px}
+label{display:grid;gap:4px;font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+input,select,textarea{font:400 .95rem var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 10px;width:100%;text-transform:none;letter-spacing:0;min-width:0}
+textarea{resize:vertical}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.btn{border:0;background:var(--accent);color:var(--accent-ink);font:600 .92rem var(--f-body);padding:11px 14px;border-radius:9px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+.btn.small{padding:6px 11px;font-size:.8rem}
+.btn.wa{background:#1f7a4d}
+.btn.danger{background:var(--late);color:#fff}
+.msg{font-size:.85rem;min-height:1.2em;margin:0}.msg.ok{color:var(--ok)}.msg.err{color:var(--late)}
+.hint{font-size:.8rem;color:var(--muted);margin:0}
+.novo{margin-top:16px;border:1px solid var(--gold);background:linear-gradient(135deg,var(--accent-soft),var(--surface));border-radius:10px;padding:14px;display:grid;gap:10px}
+.novo .t{font-family:var(--f-display);font-size:1.05rem;color:var(--accent)}
+.linkbox{font:400 .78rem var(--f-mono);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere;user-select:all}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.banner{background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:10px 12px;font-size:.88rem;margin-bottom:16px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.toolbar input{flex:1 1 220px;width:auto}.toolbar select{flex:0 1 200px;width:auto}
+.list{display:grid;gap:10px}
+.pt{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.pt.open{box-shadow:0 6px 24px rgba(60,40,10,.08)}
+.pt-head{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:13px 15px;cursor:pointer;width:100%;border:0;background:transparent;color:inherit;text-align:left;font:inherit;flex-wrap:wrap}
+.pt-name{font-weight:600;overflow-wrap:anywhere}
+.pt-meta{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chip{font:500 .74rem var(--f-mono);padding:3px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}.chip.warn{background:var(--warn-soft);color:var(--warn)}.chip.late{background:var(--late-soft);color:var(--late)}.chip.info{background:var(--info-soft);color:var(--info)}.chip.mut{background:#eeeae3;color:var(--muted)}
+.pt-body{border-top:1px solid var(--line);padding:16px 15px;display:grid;gap:16px;background:var(--surface2)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:1px}
+.kpi .l{font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
+.kpi .n{font-family:var(--f-display);font-size:1.3rem;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi .s{font-size:.76rem;color:var(--muted)}
+.kpi.hl{background:linear-gradient(135deg,var(--accent-soft),var(--surface));border-color:var(--gold)}
+.alerta{border:1px solid #e9b8b3;border-left:4px solid var(--late);background:var(--late-soft);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+.alerta h3{margin:0 0 6px;color:var(--late);font-size:.78rem;letter-spacing:.12em;font-weight:700}
+.alerta div{font-size:.92rem;margin:3px 0}.alerta .tag{display:inline-block;font:700 .66rem var(--f-body);letter-spacing:.06em;padding:1px 7px;border-radius:99px;margin-right:6px;vertical-align:1px}
+.alerta .tag.alto{background:var(--late);color:#fff}.alerta .tag.atencao{background:#fff;color:var(--late);border:1px solid var(--late)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.box h3{margin:0 0 10px;font-family:var(--f-display);font-weight:400;font-size:1.08rem;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.box h3 span{font-family:var(--f-body);font-size:.78rem;color:var(--muted)}
+.efrow{display:grid;grid-template-columns:120px 1fr 64px 70px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:.88rem}
+.efrow:last-of-type{border-bottom:0}
+@media (max-width:560px){.efrow{grid-template-columns:96px 1fr 52px 60px;gap:6px}}
+.efbar{height:10px;border-radius:99px;background:#efe9df;position:relative;overflow:hidden}
+.efbar i{position:absolute;inset:0 auto 0 0;border-radius:99px}
+.lv-Baixo{background:#9db8ab}.lv-Médio{background:var(--gold)}.lv-Alto{background:var(--late)}
+.efsc{font-family:var(--f-mono);font-size:.82rem;text-align:right}
+.efpred{margin-top:10px;font-size:.9rem}
+.efpred b{color:var(--accent)}
+.nota{font-size:.74rem;color:var(--muted);margin:8px 0 0}
+details summary{cursor:pointer;font-size:.84rem;color:var(--accent);font-weight:600;margin-top:8px}
+table{border-collapse:collapse;width:100%;font-size:.85rem}
+td,th{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+.qa{display:grid;gap:0}
+.qa .r{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.88rem}
+.qa .r:last-child{border-bottom:0}
+.qa .r .p{color:var(--muted)}
+.qa .r .v{white-space:pre-wrap;overflow-wrap:anywhere}
+@media (max-width:560px){.qa .r{grid-template-columns:1fr;gap:2px}}
+.secs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:12px}
+.files{display:grid;gap:6px}
+.files a{display:flex;gap:8px;align-items:center;color:var(--accent);text-decoration:none;font-size:.88rem;border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:var(--surface)}
+.files a:hover{background:var(--accent-soft)}
+.pront{font:400 .86rem/1.5 var(--f-body,inherit);min-height:200px;max-height:520px;overflow:auto;background:var(--surface);border:1px solid var(--line,#e6dfd3);border-radius:10px;padding:12px 14px;outline:none}
+.pront:focus{border-color:var(--accent)}.pront p{margin:10px 0 4px}.pront p:first-child{margin-top:0}.pront ul{margin:0 0 4px;padding-left:20px}.pront li{margin:1px 0}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:28px 20px;text-align:center;color:var(--muted);background:var(--surface)}
+.empty b{display:block;color:var(--ink);font-family:var(--f-display);font-weight:400;font-size:1.1rem;margin-bottom:4px}
+.confirm{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.85rem}
+#rel{position:fixed;inset:0;background:rgba(20,16,10,.6);z-index:50;overflow:auto;padding:16px}
+.rel-bar{max-width:820px;margin:0 auto 12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.rel-bar .msg{flex:1;color:#fff}.rel-bar .msg a{color:#f4dca8}
+.rel-page{max-width:820px;margin:0 auto;background:#fff;color:#221d16;border-radius:6px;padding:34px 38px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+@media (max-width:600px){.rel-page{padding:20px 16px}}
+@media print{body{background:#fff}body *{visibility:hidden}#rel,#rel *{visibility:visible}#rel{position:absolute;inset:0 auto auto 0;width:100%;padding:0;background:#fff}.rel-bar{display:none}.rel-page{box-shadow:none;padding:0;max-width:none}@page{size:A4;margin:12mm}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span id="logo-slot"><div class="mono">AD</div></span>
+      <div><h1>Pré-Consulta</h1><p class="sub">Questionário enviado ao paciente antes da 1ª consulta</p><p class="sub" id="usuario" style="font-size:.78rem"></p></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n" id="st-ag">0</div><div class="l">Aguardando</div></div>
+      <div class="stat"><div class="n" id="st-rv">0</div><div class="l">Para revisar</div></div>
+      <div class="stat"><div class="n" id="st-ok">0</div><div class="l">Revisadas</div></div>
+    </div>
+  </header>
+  <div id="banner" class="banner" hidden></div>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Nova pré-consulta</h2>
+      <form id="f-novo" autocomplete="off">
+        <label>Nome completo do paciente<input id="n-nome" required maxlength="120" placeholder="Como no agendamento"></label>
+        <label>WhatsApp<input id="n-whats" required maxlength="25" inputmode="tel" placeholder="(65) 99999-9999"></label>
+        <label>Data da 1ª consulta (opcional)<input id="n-cons" type="date"></label>
+        <button class="btn" id="n-btn" type="submit">Gerar link da pré-consulta</button>
+        <p class="msg" id="n-msg"></p>
+      </form>
+      <div id="novo" class="novo" hidden></div>
+      <p class="hint" style="margin-top:14px" id="validade"></p>
+    </section>
+
+    <section>
+      <div class="toolbar">
+        <input id="busca" type="search" placeholder="Buscar paciente…">
+        <select id="filtro">
+          <option value="todas">Todas</option>
+          <option value="Enviado">Aguardando resposta</option>
+          <option value="Respondido">Para revisar</option>
+          <option value="Revisado">Revisadas</option>
+          <option value="Expirado">Expiradas</option>
+          <option value="Cancelado">Canceladas</option>
+        </select>
+        <button class="btn ghost small" id="atualizar" type="button">Atualizar</button>
+      </div>
+      <div id="lista" class="list"><div class="empty"><b>Carregando…</b>Lendo a planilha do Google.</div></div>
+    </section>
+  </div>
+</div>
+
+<div id="rel" hidden>
+  <div class="rel-bar">
+    <p class="msg" id="rel-msg"></p>
+    <button class="btn small" id="rel-drive" type="button">Salvar PDF no Drive</button>
+    <button class="btn small" id="rel-print" type="button" style="background:#fff;color:#221d16">Imprimir</button>
+    <button class="btn small" id="rel-close" type="button" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)">Fechar</button>
+  </div>
+  <div class="rel-page" id="rel-page"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const semAc=s=>String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toUpperCase();
+const br=s=>{if(!s)return"";const[y,m,d]=s.split("-");return`${d}/${m}/${y}`};
+const fmt=(n,d=1)=>Number(n).toLocaleString("pt-BR",{maximumFractionDigits:d});
+const titulo=s=>String(s||"").toLowerCase().split(" ").map((w,i)=>i&&/^(da|de|do|das|dos|e)$/.test(w)?w:w.charAt(0).toUpperCase()+w.slice(1)).join(" ");
+const txtErro=e=>String(e&&e.message||e).replace(/^(Error|Exception):\s*/,"");
+const URL_APP="https://script.google.com/macros/s/AKfycbyc7c6NJmT70uJAOwn_gC7_AP_Af8SsCPVjEYVEWibv4drsSG6GnnOpc14hIX1jq4Rxew/exec";
+const chamar=async(fn,...a)=>{let k=localStorage.getItem("pc_chave");if(!k){k=prompt("Chave de acesso do painel:");if(!k)throw new Error("Sem chave.");}const r=await fetch(URL_APP,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({chave:k,acao:fn,args:a})});const j=await r.json();if(j.erro){if(j.erro==="Chave inválida."){localStorage.removeItem("pc_chave");}throw new Error(j.erro);}localStorage.setItem("pc_chave",k);return j.ok;};
+let itens=[],cfg={},aberto=null,confirmando=null,pront=null,ocupado=false,logo=null,relAtual=null,novoTok=null;
+
+/* ---------- dados ---------- */
+function aplicar(d){
+  itens=d.itens||[]; cfg=d.config||{};
+  $("usuario").textContent=d.usuario?"Conectado como "+d.usuario:"";
+  $("validade").textContent=`Cada link vale ${cfg.dias||30} dias e só pode ser respondido uma vez.`;
+  if(!cfg.urlForm){$("banner").innerHTML="Falta configurar a <b>URL do formulário do paciente</b> na aba <b>Config</b> da planilha. Sem ela, não é possível gerar links.";$("banner").hidden=false}
+  else $("banner").hidden=true;
+  render();
+}
+async function atualizar(auto){
+  if(ocupado) return;
+  try{const d=await chamar("carregar"); if(auto&&(ocupado||confirmando||pront)) return; aplicar(d)}
+  catch(e){$("banner").textContent="Não foi possível carregar a planilha: "+txtErro(e);$("banner").hidden=false}
+}
+async function carregarLogo(){
+  if(logo!==null) return logo;
+  try{logo=cfg.temLogo===false?"":await chamar("getLogo")}catch(e){logo=""}
+  if(logo) $("logo-slot").innerHTML=`<img src="${logo}" alt="">`;
+  return logo;
+}
+
+/* ---------- mensagem / whatsapp ---------- */
+function mensagem(it){
+  const pn=titulo(it.nome).split(" ")[0];
+  return String(cfg.msg||"").replace(/\{nome\}/g,pn).replace(/\{link\}/g,it.link).replace(/\{dias\}/g,cfg.dias||30).replace(/\{medico\}/g,cfg.medico||"");
+}
+const waUrl=it=>"https:\/\/wa.me/"+it.whats+"?text="+encodeURIComponent(mensagem(it)); // sem barra dupla literal: o Apps Script corta o que vem depois dela
+const fmtWhats=w=>{const d=String(w||"").replace(/^55/,"");return d.length===11?`(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`:d.length===10?`(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`:w};
+async function copiar(t,btn){
+  let ok=false; try{await navigator.clipboard.writeText(t);ok=true}catch(e){}
+  if(!ok){const ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{ok=document.execCommand("copy")}catch(e){}ta.remove()}
+  if(btn){const o=btn.textContent;btn.textContent=ok?"Copiado ✓":"Selecione e copie";setTimeout(()=>btn.textContent=o,1600)}
+}
+function linkAcoes(it){
+  return `<div class="linkbox">${esc(it.link)}</div>
+  <div class="actions"><a class="btn wa small" href="${esc(waUrl(it))}">Enviar pelo WhatsApp</a>
+  <button class="btn ghost small" data-act="copy-msg" data-id="${esc(it.token)}" type="button">Copiar mensagem</button>
+  <button class="btn ghost small" data-act="copy-link" data-id="${esc(it.token)}" type="button">Copiar link</button></div>`;
+}
+
+/* ---------- nova ---------- */
+$("f-novo").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const m=$("n-msg"); m.className="msg ok"; m.textContent="Gerando…"; $("n-btn").disabled=true; ocupado=true;
+  try{
+    const d=await chamar("novaPreConsulta",{nome:$("n-nome").value,whats:$("n-whats").value,consulta:$("n-cons").value});
+    ocupado=false; novoTok=d.novoToken; aplicar(d);
+    const it=itens.find(x=>x.token===novoTok);
+    $("novo").innerHTML=`<div class="t">Link criado para ${esc(titulo(it.nome))}</div>${linkAcoes(it)}<p class="hint">O botão do WhatsApp abre a conversa com ${esc(fmtWhats(it.whats))} e a mensagem pronta.</p>`;
+    $("novo").hidden=false; m.textContent=""; $("n-nome").value=""; $("n-whats").value=""; $("n-cons").value="";
+  }catch(err){m.className="msg err";m.textContent=txtErro(err)}
+  $("n-btn").disabled=false; ocupado=false;
+});
+$("novo").addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(t)acao(t)});
+
+/* ---------- lista ---------- */
+const ST={Enviado:["warn","aguardando"],Respondido:["info","para revisar"],Revisado:["ok","revisada"],Expirado:["late","expirado"],Cancelado:["mut","cancelado"]};
+$("busca").addEventListener("input",render); $("filtro").addEventListener("change",render);
+$("atualizar").addEventListener("click",()=>atualizar());
+$("lista").addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(t)acao(t)});
+$("lista").addEventListener("input",e=>{if(e.target.classList&&e.target.classList.contains("pront"))e.target.dataset.editado="1"});
+
+async function acao(t){
+  const {act,id}=t.dataset, it=itens.find(x=>x.token===id);
+  if(act==="toggle"){aberto=aberto===id?null:id;confirmando=null;pront=null;render();return}
+  if(act==="copy-msg") return copiar(mensagem(it),t);
+  if(act==="copy-link") return copiar(it.link,t);
+  if(act==="pront"){pront=pront===id?null:id;render();if(pront)$("pr-"+id).focus();return}
+  if(act==="copy-pront"||act==="copy-all") return copiarPront(it,t);
+  if(act==="pdf") return abrirRelatorio(it);
+  if(act==="ask"){confirmando=t.dataset.what+":"+id;render();return}
+  if(act==="cancel"){confirmando=null;render();return}
+  const fn={renovar:"renovarLink",cancelar:"cancelarLink",excluir:"excluirPreConsulta",rev:"marcarRevisado",unrev:"marcarRevisado"}[act];
+  if(!fn) return;
+  ocupado=true; t.disabled=true; confirmando=null;
+  try{const d=await (act==="rev"||act==="unrev"?chamar(fn,id,act==="rev"):chamar(fn,id)); if(act==="excluir") aberto=null; ocupado=false; aplicar(d)}
+  catch(err){$("banner").textContent=txtErro(err);$("banner").hidden=false}
+  ocupado=false; render();
+}
+
+const chave=i=>{const m=String(i.respondido||i.criado).match(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}:\d{2})/);return m?m[3]+m[2]+m[1]+m[4]:""};
+function render(){
+  $("st-ag").textContent=itens.filter(i=>i.status==="Enviado").length;
+  $("st-rv").textContent=itens.filter(i=>i.status==="Respondido").length;
+  $("st-ok").textContent=itens.filter(i=>i.status==="Revisado").length;
+  const q=semAc($("busca").value.trim()), f=$("filtro").value;
+  const ordem={Respondido:0,Enviado:1,Revisado:2,Expirado:3,Cancelado:4};
+  const vis=itens.filter(i=>(!q||semAc(i.nome).includes(q))&&(f==="todas"||i.status===f))
+    .sort((a,b)=>(ordem[a.status]-ordem[b.status])||chave(b).localeCompare(chave(a)));
+  if(!itens.length){$("lista").innerHTML=`<div class="empty"><b>Nenhuma pré-consulta ainda</b>Gere o primeiro link no painel ao lado.</div>`;return}
+  if(!vis.length){$("lista").innerHTML=`<div class="empty"><b>Nada encontrado</b>Ajuste a busca ou o filtro.</div>`;return}
+  $("lista").innerHTML=vis.map(it=>{
+    const open=aberto===it.token, tk=esc(it.token), [cls,txt]=ST[it.status]||["",it.status];
+    const resp=it.status==="Respondido"||it.status==="Revisado";
+    const meta=resp?`Respondida em ${it.respondido}`:it.status==="Enviado"?`Enviado em ${it.criado.split(" ")[0]} · expira ${it.expira.split(" ")[0]}`:`Criado em ${it.criado.split(" ")[0]}`;
+    const head=`<button class="pt-head" data-act="toggle" data-id="${tk}" aria-expanded="${open}"><div><div class="pt-name">${esc(titulo(it.nome))}</div>
+      <div class="pt-meta">${meta}${it.consulta?` · consulta ${br(it.consulta)}`:""}</div></div>
+      <div class="chips">${resp&&alertasDe(it).length?`<span class="chip late">⚠ ${alertasDe(it).length} alerta${alertasDe(it).length>1?"s":""}</span>`:""}${resp&&it.predominante?`<span class="chip">EFCA: ${esc(it.predominante.replace(/ \((Alto|Médio)\)/g,""))}</span>`:""}${it.anexos.length?`<span class="chip">${it.anexos.length} anexo${it.anexos.length>1?"s":""}</span>`:""}<span class="chip ${cls}">${txt}</span></div></button>`;
+    if(!open) return `<div class="pt">${head}</div>`;
+    return `<div class="pt open">${head}<div class="pt-body">${resp?corpoResp(it):corpoPend(it)}</div></div>`;
+  }).join("");
+}
+function confirmar(what,it,pergunta,acao,rot){
+  return confirmando===what+":"+it.token
+    ?`<span class="confirm">${pergunta} <button class="btn small danger" data-act="${acao}" data-id="${esc(it.token)}">${rot}</button><button class="btn small ghost" data-act="cancel">Voltar</button></span>`
+    :`<button class="btn small ghost" data-act="ask" data-what="${what}" data-id="${esc(it.token)}">${rot}</button>`;
+}
+function corpoPend(it){
+  const ativo=it.status==="Enviado";
+  return `<div class="kpis">
+    <div class="kpi"><span class="l">WhatsApp</span><span class="n" style="font-size:1.05rem">${esc(fmtWhats(it.whats))}</span></div>
+    <div class="kpi"><span class="l">Enviado em</span><span class="n" style="font-size:1.05rem">${esc(it.criado)}</span><span class="s">${esc(it.por)}</span></div>
+    <div class="kpi"><span class="l">${it.status==="Expirado"?"Expirou em":"Expira em"}</span><span class="n" style="font-size:1.05rem">${esc(it.expira)}</span></div>
+    ${it.anexos.length?`<div class="kpi"><span class="l">Anexos já enviados</span><span class="n">${it.anexos.length}</span><span class="s">formulário ainda não concluído</span></div>`:""}
+  </div>
+  ${ativo&&it.link?linkAcoes(it):""}
+  <div class="actions">
+    <button class="btn small ghost" data-act="renovar" data-id="${esc(it.token)}">${it.status==="Enviado"?"Renovar prazo":"Reativar link"} (+${cfg.dias||30} dias)</button>
+    ${ativo?confirmar("can",it,"Cancelar este link?","cancelar","Cancelar link"):""}
+    ${confirmar("exc",it,"Excluir este registro da planilha?","excluir","Excluir")}
+  </div>`;
+}
+
+/* ---------- respondida ---------- */
+const alertasDe=it=>(it.resp&&Array.isArray(it.resp.alertas))?it.resp.alertas:[];
+const NIVEL_TXT={alto:"● PRIORITÁRIO",atencao:"ATENÇÃO"};
+const dtHora=s=>{const m=String(s||"").match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}:\d{2})/);return m?`${m[3]}/${m[2]}/${m[1]} às ${m[4]}`:""};
+const IMC_CLS=v=>v<18.5?"baixo peso":v<25?"eutrofia":v<30?"sobrepeso":v<35?"obesidade grau I":v<40?"obesidade grau II":"obesidade grau III";
+function derivados(it){
+  const c=(it.resp&&it.resp.campos)||{}, num=v=>{const x=Number(String(v||"").replace(",","."));return String(v||"").trim()&&isFinite(x)?x:null};
+  const peso=num(c.peso), alt=num(c.altura), imc=peso&&alt?peso/Math.pow(alt/100,2):null;
+  let idade=null; if(c.nascimento){const n=new Date(c.nascimento+"T12:00"),ref=new Date((it.resp.enviadoEm||"").slice(0,10)+"T12:00");const r=isNaN(ref)?new Date():ref;idade=r.getFullYear()-n.getFullYear()-((r.getMonth()<n.getMonth()||(r.getMonth()===n.getMonth()&&r.getDate()<n.getDate()))?1:0)}
+  return {c,peso,alt,imc,idade,desejado:num(c.peso_desejado),max:num(c.peso_max)};
+}
+function efcaHtml(ef,pdf){
+  if(!ef) return "";
+  const rows=ef.subs.map(s=>{
+    const w=Math.max(4,Math.round((s.escore-s.min)/(s.max-s.min)*100));
+    return pdf
+      ?`<tr><td style="padding:5px 8px;border-bottom:1px solid #eee6d8">${s.nome}</td><td style="padding:5px 8px;border-bottom:1px solid #eee6d8">${s.escore} / ${s.max}</td><td style="padding:5px 8px;border-bottom:1px solid #eee6d8;color:${s.nivel==="Alto"?"#b3261e":s.nivel==="Médio"?"#8a6624":"#1f7a4d"};font-weight:bold">${s.nivel}</td></tr>`
+      :`<div class="efrow"><span>${s.nome}</span><div class="efbar"><i class="lv-${s.nivel}" style="width:${w}%"></i></div><span class="efsc">${s.escore}/${s.max}</span><span class="chip ${s.nivel==="Alto"?"late":s.nivel==="Médio"?"warn":"ok"}" style="justify-self:end">${s.nivel}</span></div>`;
+  }).join("");
+  return {rows,total:`${ef.total}/80 (${ef.totalNivel})`,pred:ef.predominante};
+}
+const EFCA_ITENS=["Eu como até ficar muito cheio","Acalmo as minhas emoções com comida","Peço mais comida quando termino meu prato","Tenho o hábito de petiscar","Quando começo a comer algo que gosto muito, tenho dificuldade em parar","Costumo comer mais de um prato nas refeições principais","Lanches entre as refeições devido à ansiedade, tédio, solidão, medo, raiva, tristeza e/ou cansaço","Sinto-me tentado a comer quando vejo/cheiro comida que gosto (quiosque, padaria, pizzaria, fast food)","Tomo café da manhã todos os dias *","Como nos momentos em que estou entediado, ansioso, nervoso, triste, cansado, irritado e solitário","Pulo algumas – ou pelo menos uma – das refeições principais","Quando me deparo com uma comida que gosto muito, mesmo sem sentir fome, acabo comendo","Como muita comida em pouco tempo","Quando como algo que gosto, finalizo toda a porção","Quando como algo que gosto muito, como muito rápido","Passo mais de 5 horas por dia sem comer"];
+const LIK=["Nunca","Raras vezes","Às vezes","Quase sempre","Sempre"];
+const SUB_DE={9:"Desorg.",11:"Desorg.",16:"Desorg.",5:"Hedônico",8:"Hedônico",12:"Hedônico",14:"Hedônico",13:"Compulsivo",15:"Compulsivo",2:"Emocional",4:"Emocional",7:"Emocional",10:"Emocional",1:"Hiperfágico",3:"Hiperfágico",6:"Hiperfágico"};
+const NOTA_EFCA="EFCA – Escala de Fenótipos de Comportamento Alimentar (Anger et al., 2020; validação PT-BR: Pineda-Wieselberg et al., Arch Endocrinol Metab 2025). Pontos de corte por subescala conforme a publicação; item 9 com pontuação invertida. Na versão brasileira, o item 14 teve carga fatorial baixa no fator hedônico.";
+
+function corpoResp(it){
+  const d=derivados(it), r=it.resp||{}, ef=efcaHtml(r.efca), tk=esc(it.token);
+  const k=(l,n,s,hl)=>`<div class="kpi${hl?" hl":""}"><span class="l">${l}</span><span class="n">${n}</span>${s?`<span class="s">${s}</span>`:""}</div>`;
+  const kp=`<div class="kpis">
+    ${k("Idade",d.idade!=null?d.idade+" anos":"–",d.c.nascimento?br(d.c.nascimento):"")}
+    ${k("Sexo",esc(d.c.sexo||"–"))}
+    ${k("Peso referido",d.peso?fmt(d.peso)+" kg":"–",d.max?"máx. "+fmt(d.max)+" kg":"")}
+    ${k("Altura",d.alt?fmt(d.alt,0)+" cm":"–")}
+    ${k("IMC",d.imc?fmt(d.imc,1):"–",d.imc?IMC_CLS(d.imc):"",true)}
+    ${k("Peso desejado",d.desejado?fmt(d.desejado)+" kg":"–",d.desejado&&d.peso?`−${fmt(d.peso-d.desejado)} kg (${fmt((d.peso-d.desejado)/d.peso*100)}%)`:"")}
+  </div>`;
+  const efBox=ef?`<div class="box"><h3>Fenótipo alimentar – EFCA <span>escore total ${ef.total}</span></h3>${ef.rows}
+    <div class="efpred">Predominante: <b>${esc(ef.pred)}</b></div>
+    <details><summary>Ver as 16 respostas</summary><table style="margin-top:8px"><thead><tr><th>#</th><th>Item</th><th>Subescala</th><th>Resposta</th></tr></thead><tbody>
+    ${r.efca.respostas.map((v,i)=>`<tr><td>${i+1}</td><td>${esc(EFCA_ITENS[i])}</td><td>${SUB_DE[i+1]}</td><td>${LIK[v-1]}${i===8?` <span class="hint">(pontua ${6-v})</span>`:""}</td></tr>`).join("")}</tbody></table></details>
+    <p class="nota">${NOTA_EFCA}</p></div>`:"";
+  const secs=(r.secoes||[]).map(s=>`<div class="box"><h3>${esc(s.titulo)}</h3><div class="qa">${s.itens.map(i=>`<div class="r"><span class="p">${esc(i.p)}</span><span class="v">${esc(i.r)}</span></div>`).join("")}</div></div>`).join("");
+  const anx=it.anexos.length?`<div class="box"><h3>Exames anexados <span>${it.pasta?`<a href="${esc(it.pasta)}" style="color:var(--accent)">abrir pasta no Drive</a>`:""}</span></h3><div class="files">${it.anexos.map(a=>`<a href="${esc(a.url)}">📎 ${esc(a.nome)} <span class="hint">· ${fmt((a.tam||0)/1048576,1)} MB</span></a>`).join("")}</div></div>`:"";
+  const pr=pront===it.token?`<div class="box"><h3>Texto para o prontuário <span>pode editar aqui antes de copiar</span></h3><div class="pront" id="pr-${tk}" contenteditable="true" spellcheck="false">${prontHtml(it)}</div><div class="actions" style="margin-top:8px"><button class="btn small" data-act="copy-pront" data-id="${tk}">Copiar texto formatado</button></div></div>`:"";
+  const al=alertasDe(it);
+  const alBox=al.length?`<div class="alerta"><h3>ALERTAS DE SEGURANÇA · GLP-1 / TIRZEPATIDA</h3>${al.map(a=>`<div><span class="tag ${a.nivel}">${NIVEL_TXT[a.nivel]||""}</span>${esc(a.texto)}</div>`).join("")}</div>`:"";
+  const cons=r.consentimento&&r.consentimento.aceito?`<p class="hint" style="margin-top:10px">✓ Consentimento LGPD aceito pelo paciente em ${esc(dtHora(r.consentimento.registradoEm))}.</p>`:"";
+  return `${kp}${alBox}
+  <div class="actions">
+    <button class="btn small" data-act="pront" data-id="${tk}">${pront===it.token?"Fechar texto do prontuário":"Texto para prontuário"}</button>
+    <button class="btn small ghost" data-act="pdf" data-id="${tk}">Gerar PDF (anexar no Tribe)</button>
+    ${it.pdf?`<a class="btn small ghost" href="${esc(it.pdf)}">Abrir último PDF</a>`:""}
+    ${it.pasta?`<a class="btn small ghost" href="${esc(it.pasta)}">Pasta do paciente</a>`:""}
+    ${it.status==="Revisado"?`<button class="btn small ghost" data-act="unrev" data-id="${tk}">Desmarcar revisão</button>`:`<button class="btn small ghost" data-act="rev" data-id="${tk}">Marcar como revisada</button>`}
+  </div>
+  ${pr}${efBox}<div class="secs">${secs}</div>${anx}${cons}
+  <div class="actions"><button class="btn small" data-act="copy-all" data-id="${tk}" type="button">Copiar todos os dados (Tribe)</button>${confirmar("exc",it,"Excluir esta pré-consulta da planilha? (os anexos continuam no Drive)","excluir","Excluir registro")}</div>`;
+}
+
+/* ---------- prontuário ---------- */
+const SEC_PRONT={"Seu objetivo":"OBJETIVO","Histórico de peso":"HISTÓRICO PONDERAL","Comorbidades e doenças prévias":"COMORBIDADES / DOENÇAS PRÉVIAS","Segurança do tratamento":"COMORBIDADES / DOENÇAS PRÉVIAS","Sua saúde":"ANTECEDENTES PESSOAIS","Remédios e histórico familiar":"MEDICAÇÕES E ANTECEDENTES","Remédios e alergias":"MEDICAÇÕES E ALERGIAS","Rotina e hábitos":"HÁBITOS DE VIDA","Saúde da mulher":"HISTÓRIA GINECOLÓGICA","Alimentação":"HISTÓRIA ALIMENTAR","Exames e finalização":"OBSERVAÇÕES DO PACIENTE","Exames (opcional)":"OBSERVAÇÕES DO PACIENTE"};
+const ORD_PRONT=["OBJETIVO","HISTÓRICO PONDERAL","COMORBIDADES / DOENÇAS PRÉVIAS","ANTECEDENTES PESSOAIS","MEDICAÇÕES E ANTECEDENTES","MEDICAÇÕES E ALERGIAS","HISTÓRIA GINECOLÓGICA","HÁBITOS DE VIDA","HISTÓRIA ALIMENTAR"];
+const FORA=["nome","nascimento","sexo","profissao","cidade","email","peso","altura","peso_desejado","peso_max"];
+const MULTI=["objetivos","tratamentos","familia"];
+const DESTAQUE=["seguranca","doencas","medicacoes","alergias","bariatrica_txt","gestacao"];
+const SIGLAS=/\b(glp-1|trh|nem|dn|imc|efca|lgpd|aco|sop|dm|has|avc)\b/gi;
+const TERMOS=[["Nenhuma destas","nega comorbidades"],["Pré-diabetes / resistência à insulina","pré-DM / resistência insulínica"],["Pressão alta (hipertensão)","HAS"],["Pressão alta","HAS"],["Colesterol ou triglicerídeos altos","dislipidemia"],["Gordura no fígado","esteatose hepática"],["Síndrome dos ovários policísticos","SOP"],["Apneia do sono","SAOS"],["Refluxo / gastrite","DRGE / gastrite"],["Ansiedade ou depressão","ansiedade / depressão"],["Pancreatite (inflamação no pâncreas)","pancreatite prévia"],["Câncer medular de tireoide – em mim ou na família","CMT (pessoal ou familiar)"],["Neoplasia endócrina múltipla tipo 2 (NEM 2) – em mim ou na família","NEM 2 (pessoal ou familiar)"],["Pedra na vesícula ou cirurgia de retirada da vesícula","colelitíase / colecistectomia"],["Gastroparesia (estômago que esvazia devagar)","gastroparesia"],["Retinopatia diabética (problema na retina causado pelo diabetes)","retinopatia diabética"],["Doença renal crônica ou hemodiálise","DRC / hemodiálise"],["Transtorno alimentar (anorexia, bulimia ou compulsão alimentar)","transtorno alimentar"],["Problema nos rins","doença renal"],["Diabetes","DM"],["Hipotireoidismo","hipotireoidismo"],["Ansiedade","ansiedade"],["Depressão","depressão"],["Outra",""]];
+const termos=t=>{let x=String(t||"");TERMOS.forEach(([a,b])=>{x=x.split(a).join(b)});x=x.replace(/(, )+$/,"").replace(/, (, )+/g,", ").replace(/^, /,"");return x.charAt(0).toUpperCase()+x.slice(1)};
+const frase=s=>{const t=String(s||"").trim().toLowerCase().replace(SIGLAS,m=>m.toUpperCase());return t.charAt(0).toUpperCase()+t.slice(1)};
+function prontModelo(it){
+  const d=derivados(it), r=it.resp||{}, c=d.c, B=[];
+  const quando=br((r.enviadoEm||"").slice(0,10));
+  const nome=c.nome?titulo(c.nome):titulo(it.nome);
+  B.push({h:"IDENTIFICAÇÃO",l:[["Paciente",nome,1],["Idade",d.idade!=null?`${d.idade} anos (DN ${br(c.nascimento)})`:""],["Sexo",c.sexo],["Profissão",c.profissao],["Cidade",c.cidade],["E-mail",c.email]]});
+  const perda=d.peso&&d.desejado&&d.peso>d.desejado?` (meta de perda: ${fmt(d.peso-d.desejado)} kg; ${fmt((d.peso-d.desejado)/d.peso*100)}%)`:"";
+  B.push({h:"ANTROPOMETRIA (REFERIDA PELO PACIENTE)",l:[["Peso",d.peso?fmt(d.peso)+" kg":""],["Altura",d.alt?fmt(d.alt/100,2)+" m":""],["IMC",d.imc?`${fmt(d.imc,1)} kg/m² – ${IMC_CLS(d.imc)}`:"",1],["Peso desejado",d.desejado?fmt(d.desejado)+" kg"+perda:""],["Maior peso",d.max?fmt(d.max)+" kg":""]]});
+  const al=alertasDe(it);
+  if(al.length) B.push({h:"ALERTAS DE SEGURANÇA (GLP-1/TIRZEPATIDA)",alerta:1,l:al.map(a=>[a.nivel==="alto"?"Prioritário":"Atenção",frase(a.texto),1])});
+  const grupos={};
+  (r.secoes||[]).forEach(s=>{const h=SEC_PRONT[s.titulo]||String(s.titulo).toUpperCase();
+    s.itens.filter(i=>!FORA.includes(i.id)).forEach(i=>{(grupos[h]=grupos[h]||[]).push([frase(i.pr||i.p),i.id==="seguranca"||i.id==="doencas"?termos(i.r):MULTI.includes(i.id)?String(i.r).replace(/, ([A-ZÀ-Ú])([a-zà-ú])(?![^()]*\))/g,(x,p,q)=>", "+p.toLowerCase()+q):i.r,DESTAQUE.includes(i.id)&&!/^(n[ãa]o|nenhum)/i.test(String(i.r).trim())])})});
+  const obs=grupos["OBSERVAÇÕES DO PACIENTE"]; delete grupos["OBSERVAÇÕES DO PACIENTE"];
+  Object.keys(grupos).sort((a,b)=>{const x=ORD_PRONT.indexOf(a),y=ORD_PRONT.indexOf(b);return (x<0?99:x)-(y<0?99:y)}).forEach(h=>B.push({h,l:grupos[h]}));
+  if(r.efca){const e=r.efca;B.push({h:"FENÓTIPO ALIMENTAR (EFCA)",l:[["Escore total",`${e.total}/80 – ${String(e.totalNivel).toLowerCase()}`,1],["Predominante",String(e.predominante).replace(/\((Alto|Médio|Baixo)\)/g,m=>m.toLowerCase()),1],["Subescalas",e.subs.map(s=>`${s.nome} ${s.escore}/${s.max} (${String(s.nivel).toLowerCase()})`).join("; ")]]})}
+  const ex=(obs||[]).slice(); if(it.anexos.length) ex.unshift(["Exames anexados",`${it.anexos.length} arquivo(s): ${it.anexos.map(a=>a.nome).join("; ")}`]);
+  if(ex.length) B.push({h:"EXAMES E OBSERVAÇÕES",l:ex});
+  B.forEach(b=>b.l=b.l.filter(x=>String(x[1]||"").trim()));
+  const rod=r.consentimento&&r.consentimento.aceito?`Consentimento LGPD para uso dos dados aceito pelo paciente em ${dtHora(r.consentimento.registradoEm)}.`:"";
+  return {titulo:"PRÉ-CONSULTA",sub:`Questionário preenchido pelo paciente${quando?" em "+quando:""}.`,blocos:B.filter(b=>b.l.length),rod};
+}
+const ponto=t=>{const x=String(t||"").trim();return /[.!?…:]$/.test(x)?x:x+"."};
+function prontHtml(it){
+  const m=prontModelo(it), v=t=>esc(ponto(t)).replace(/\n+/g,"<br>");
+  return `<p>#${m.titulo}:</p><p>${esc(m.sub)}</p><p><br></p>`+m.blocos.map(b=>`<p>${b.alerta?`<b>#${esc(b.h)}:</b>`:`#${esc(b.h)}:`}</p><ul>${b.l.map(([l,val,hl])=>`<li>${esc(l)}: ${hl?`<b>${v(val)}</b>`:v(val)}</li>`).join("")}</ul><p><br></p>`).join("")+(m.rod?`<p><i>${esc(m.rod)}</i></p>`:"");
+}
+function textoPront(it){
+  const m=prontModelo(it), v=t=>ponto(String(t).replace(/\s{0,}\n+\s{0,}/g," / "));
+  return [`#${m.titulo}:`,m.sub].concat(m.blocos.map(b=>`\n#${b.h}:\n`+b.l.map(([l,val])=>`• ${l}: ${v(val)}`).join("\n")),m.rod?["\n"+m.rod]:[]).join("\n");
+}
+async function copiarRico(html,txt,btn){
+  let ok=false;
+  try{if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){await navigator.clipboard.write([new ClipboardItem({"text/html":new Blob([html],{type:"text/html"}),"text/plain":new Blob([txt],{type:"text/plain"})})]);ok=true}}catch(e){}
+  if(!ok){const dv=document.createElement("div");dv.innerHTML=html;dv.style.cssText="position:fixed;left:-9999px;top:0";document.body.appendChild(dv);
+    const sel=getSelection(),rg=document.createRange();rg.selectNodeContents(dv);sel.removeAllRanges();sel.addRange(rg);try{ok=document.execCommand("copy")}catch(e){}sel.removeAllRanges();dv.remove()}
+  if(!ok){try{await navigator.clipboard.writeText(txt);ok=true}catch(e){}}
+  if(btn){const o=btn.textContent;btn.textContent=ok?"Copiado ✓":"Não foi possível copiar";setTimeout(()=>btn.textContent=o,1600)}
+}
+function copiarPront(it,btn){
+  const box=$("pr-"+it.token);
+  if(box&&box.dataset.editado) return copiarRico(box.innerHTML,box.innerText,btn);
+  return copiarRico(prontHtml(it),textoPront(it),btn);
+}
+
+/* ---------- PDF ---------- */
+function htmlPdf(it,lg){
+  const d=derivados(it), r=it.resp||{}, quando=(r.enviadoEm||"").slice(0,10), c=d.c;
+  const G="#8a6624",GOLD="#b8913f",INK="#221d16",MUT="#7a6f5f",LINE="#e6dfd3",SOFT="#f8f1e2",ZEB="#fbf8f3",DARK="#2a241c";
+  const NV={Alto:["#b3261e","#fbe5e3"],"Médio":["#9a6200","#fbf0d9"],Baixo:["#1f7a4d","#e3f3ea"]};
+  const chip=(t,k)=>{const x=NV[k]||[G,SOFT];return `<span style="display:inline-block;padding:1px 8px;border-radius:10px;border:1px solid ${x[0]};background:${x[1]};color:${x[0]};font-size:8pt;font-weight:bold;letter-spacing:.04em">${esc(t)}</span>`};
+  const tit=(t,sub)=>`<table style="width:100%;border-collapse:collapse;margin:0 0 7px"><tr><td style="font-size:11.5pt;color:${G};padding:0 0 4px;border-bottom:1.5px solid ${GOLD};white-space:nowrap;width:1%">${t}</td><td style="border-bottom:1px solid ${LINE};text-align:right;font-size:8pt;color:${MUT};padding:0 0 4px">${sub||""}</td></tr></table>`;
+  const mapa={}; (r.secoes||[]).forEach(s=>s.itens.forEach(i=>{mapa[i.id]=i.r}));
+  const v=id=>mapa[id]&&!/^(nenhum[a]?|nenhum \/ não sei|não)$/i.test(String(mapa[id]).trim())?mapa[id]:"";
+  /* faixa do paciente */
+  const linhaId=[d.idade!=null?`${d.idade} anos`:"",c.nascimento?`DN ${br(c.nascimento)}`:"",c.sexo,c.profissao,c.cidade].filter(Boolean).map(esc).join(" &nbsp;·&nbsp; ");
+  const faixa=`<table style="width:100%;border-collapse:collapse;margin:0 0 12px;border-top:3px solid ${GOLD};border-bottom:1px solid ${LINE}"><tr>
+    <td bgcolor="${SOFT}" style="padding:11px 14px"><div style="font-size:7.5pt;letter-spacing:.2em;color:${G};font-weight:bold">PACIENTE</div>
+      <div style="font-size:15pt;margin:2px 0 3px;color:${INK}">${esc(c.nome||titulo(it.nome))}</div><div style="font-size:9pt;color:${MUT}">${linhaId||"&nbsp;"}</div></td>
+    <td bgcolor="${SOFT}" style="padding:11px 14px;text-align:right;vertical-align:top;white-space:nowrap"><div style="font-size:7.5pt;letter-spacing:.2em;color:${G};font-weight:bold">RESPONDIDO EM</div>
+      <div style="font-size:12pt;margin-top:2px;color:${INK}">${br(quando)||"–"}</div>${c.email?`<div style="font-size:8.5pt;color:${MUT};margin-top:3px">${esc(c.email)}</div>`:""}</td></tr></table>`;
+  /* indicadores */
+  const box=(l,n,s,hl)=>`<td style="width:25%;padding:0 4px;vertical-align:top"><div style="border:${hl?"2px solid "+GOLD:"1px solid "+LINE};border-radius:8px;padding:9px 11px">
+    <div style="font-size:7.5pt;letter-spacing:.09em;text-transform:uppercase;color:${MUT};font-weight:bold">${l}</div>
+    <div style="font-size:16pt;color:${hl?G:INK};margin-top:2px">${n}</div><div style="font-size:8pt;color:${MUT};min-height:10pt">${s||"&nbsp;"}</div></div></td>`;
+  const perda=d.desejado&&d.peso?d.peso-d.desejado:null;
+  const kpis=`<table style="border-collapse:collapse;margin:0 -4px 14px;width:calc(100% + 8px)"><tr>
+    ${box("Peso referido",d.peso?fmt(d.peso)+" kg":"–",d.max?"maior peso: "+fmt(d.max)+" kg":"")}
+    ${box("Altura",d.alt?fmt(d.alt/100,2)+" m":"–","")}
+    ${box("IMC",d.imc?fmt(d.imc,1):"–",d.imc?IMC_CLS(d.imc):"",true)}
+    ${box("Peso desejado",d.desejado?fmt(d.desejado)+" kg":"–",perda!=null&&perda>0?`perder ${fmt(perda)} kg (${fmt(perda/d.peso*100)}%)`:"")}
+  </tr></table>`;
+  /* alertas */
+  const al=alertasDe(it);
+  const alertas=al.length?`<table style="page-break-inside:avoid;width:100%;border-collapse:collapse;margin:0 0 14px"><tr><td bgcolor="#fbe5e3" style="padding:9px 14px;border:1.5px solid #b3261e;border-left:5px solid #b3261e">
+    <div style="font-size:8pt;letter-spacing:.16em;color:#b3261e;font-weight:bold;margin-bottom:5px">ALERTAS DE SEGURANÇA · GLP-1 / TIRZEPATIDA</div>
+    <table style="width:100%;border-collapse:collapse">${al.map(a=>`<tr><td style="width:96px;padding:2px 8px 2px 0;vertical-align:top"><span style="display:inline-block;width:88px;white-space:nowrap;font-size:7pt;font-weight:bold;letter-spacing:.06em;color:#b3261e;border:${a.nivel==="alto"?"2px":"1px"} solid #b3261e;border-radius:9px;text-align:center">${NIVEL_TXT[a.nivel]||""}</span></td><td style="padding:2px 0;font-size:9.5pt;font-weight:bold;vertical-align:top">${esc(a.texto)}</td></tr>`).join("")}</table></td></tr></table>`:"";
+  /* resumo clínico */
+  const RES=[["Objetivos","objetivos"],["Expectativa","objetivo_txt"],["Comorbidades","doencas"],["Comorbidades / doenças prévias","seguranca"],["Detalhes","seguranca_txt"],["Outras condições","doencas_txt"],["Medicações em uso","medicacoes"],["Suplementos","suplementos"],["Alergias","alergias"],["Bariátrica","bariatrica_txt"],["Tratamentos prévios","tratamentos"],["Detalhes dos tratamentos","tratamentos_txt"],["Antecedentes familiares","familia"]];
+  const res=RES.filter(([,id])=>v(id)).map(([l,id])=>`<tr><td style="width:30%;padding:5px 10px 5px 0;vertical-align:top;font-size:8pt;letter-spacing:.06em;text-transform:uppercase;color:${MUT};font-weight:bold">${l}</td><td style="padding:5px 0;font-size:9.5pt;white-space:pre-wrap">${esc(v(id))}</td></tr>`).join("");
+  const resumo=res?`<table style="page-break-inside:avoid;width:100%;border-collapse:collapse;margin:0 0 14px"><tr><td bgcolor="${SOFT}" style="padding:10px 14px;border-left:3px solid ${GOLD};border-top:1px solid ${LINE};border-bottom:1px solid ${LINE};border-right:1px solid ${LINE}">${tit("Resumo clínico","pontos-chave para a consulta")}<table style="width:100%;border-collapse:collapse">${res}</table></td></tr></table>`:"";
+  /* EFCA */
+  let efca="";
+  if(r.efca){const e=r.efca;
+    const barras=e.subs.map(s=>{const w=Math.max(3,Math.round((s.escore-s.min)/(s.max-s.min)*100)),x=NV[s.nivel]||[G,SOFT];
+      return `<tr><td style="padding:5px 8px 5px 0;font-size:9.5pt;width:24%">${s.nome}</td>
+        <td style="padding:5px 8px"><table style="width:100%;border-collapse:collapse"><tr><td style="width:${w}%;border-top:9px solid ${x[0]};padding:0;font-size:1px;line-height:1px">&nbsp;</td>${w<100?`<td style="border-top:9px solid #ece4d6;padding:0;font-size:1px;line-height:1px">&nbsp;</td>`:""}</tr></table></td>
+        <td style="padding:5px 8px;font-size:9pt;white-space:nowrap;width:12%;text-align:right">${s.escore} / ${s.max}</td><td style="padding:5px 0 5px 6px;width:14%;text-align:right">${chip(s.nivel,s.nivel)}</td></tr>`}).join("");
+    efca=`<div style="page-break-inside:avoid;margin:0 0 14px">${tit("Fenótipo alimentar · EFCA","escala de 16 itens")}
+    <table style="width:100%;border-collapse:collapse"><tr>
+      <td style="width:27%;vertical-align:top;padding:4px 14px 4px 0"><div style="border:2px solid ${GOLD};border-radius:8px;padding:10px 12px;text-align:center">
+        <div style="font-size:7.5pt;letter-spacing:.09em;text-transform:uppercase;color:${MUT};font-weight:bold">Escore total</div>
+        <div style="font-size:22pt;color:${G};margin:2px 0">${e.total}<span style="font-size:10pt;color:${MUT}"> / 80</span></div>${chip(e.totalNivel,e.totalNivel)}</div>
+        <div style="font-size:7.5pt;letter-spacing:.09em;text-transform:uppercase;color:${MUT};font-weight:bold;margin:10px 0 2px">Predominante</div>
+        <div style="font-size:9.5pt;font-weight:bold">${esc(e.predominante)}</div></td>
+      <td style="vertical-align:top"><table style="width:100%;border-collapse:collapse">${barras}</table></td></tr></table>
+    <div style="font-size:7pt;color:${MUT};margin-top:6px;line-height:1.4">${NOTA_EFCA}</div></div>`;}
+  /* seções completas, em duas colunas quando curtas */
+  const FORA_PDF=["nome","nascimento","sexo","profissao","cidade","email","peso","altura","peso_desejado","peso_max"].concat(RES.filter(([,id])=>v(id)).map(([,id])=>id));
+  const card=s=>{const its=s.itens.filter(i=>!FORA_PDF.includes(i.id)); if(!its.length) return "";
+    return `<div style="page-break-inside:avoid;margin:0 0 12px">${tit(esc(s.titulo))}<table style="width:100%;border-collapse:collapse;font-size:9pt">${its.map((i,k)=>`<tr style="border-bottom:1px solid #f1ece3"${k%2?` bgcolor="${ZEB}"`:""}><td style="width:46%;padding:4px 7px;color:${MUT};vertical-align:top">${esc(i.p)}</td><td style="padding:4px 7px;vertical-align:top;white-space:pre-wrap">${esc(i.r)}</td></tr>`).join("")}</table></div>`};
+  const cards=(r.secoes||[]).map(card).filter(Boolean);
+  const curtos=[],longos=[]; (r.secoes||[]).forEach((s,k)=>{const h=card(s);if(!h)return;const n=s.itens.filter(i=>!FORA_PDF.includes(i.id));(n.length<=5&&!n.some(i=>String(i.r).length>90)?curtos:longos).push(h)});
+  let grade=""; for(let i=0;i<curtos.length;i+=2) grade+=`<table style="width:100%;border-collapse:collapse"><tr><td style="width:50%;vertical-align:top;padding-right:8px">${curtos[i]}</td><td style="width:50%;vertical-align:top;padding-left:8px">${curtos[i+1]||""}</td></tr></table>`;
+  const detalhes=cards.length?`<div style="font-size:7.5pt;letter-spacing:.25em;color:${G};font-weight:bold;text-align:center;margin:18px 0 10px">RESPOSTAS COMPLETAS</div>${grade}${longos.join("")}`:"";
+  const anexos=it.anexos.length?`<div style="page-break-inside:avoid;margin:4px 0 0">${tit("Exames enviados pelo paciente",`${it.anexos.length} arquivo${it.anexos.length>1?"s":""} · pasta 00 - Pré-Consulta`)}<table style="width:100%;border-collapse:collapse;font-size:9pt">${it.anexos.map((a,k)=>`<tr style="border-bottom:1px solid #f1ece3"${k%2?` bgcolor="${ZEB}"`:""}><td style="padding:4px 7px">${esc(a.nome)}</td><td style="padding:4px 7px;text-align:right;color:${MUT};white-space:nowrap">${fmt((a.tam||0)/1048576,1)} MB</td></tr>`).join("")}</table></div>`:"";
+  return `<div style="font-family:Arial,Helvetica,sans-serif;color:${INK}">
+  <div style="text-align:center">${lg?`<img src="${lg}" style="width:62mm;max-width:55%;height:auto">`:`<div style="font-size:15pt;letter-spacing:.1em;color:${G}">${esc((cfg.medico||"").toUpperCase())}</div>`}</div>
+  <div style="text-align:center;margin:12px 0 2px;font-size:9pt;letter-spacing:.3em;color:${G};font-weight:bold">PRÉ-CONSULTA</div>
+  <div style="text-align:center;font-size:17pt;margin-bottom:14px">Avaliação inicial do paciente</div>
+  ${faixa}${kpis}${alertas}${resumo}${efca}${detalhes}${anexos}
+  <table style="width:100%;margin-top:26px;border-collapse:collapse"><tr><td style="width:55%;font-size:7.5pt;color:${MUT};vertical-align:bottom;padding-right:20px">Informações autodeclaradas pelo paciente em formulário de pré-consulta, sujeitas à confirmação na consulta.${r.consentimento&&r.consentimento.aceito?`<br>Consentimento LGPD para uso dos dados aceito em ${esc(dtHora(r.consentimento.registradoEm))}.`:""}</td>
+    <td style="text-align:center;font-size:9.5pt"><div style="border-top:1px solid ${INK};padding-top:6px"><b>${esc(cfg.medico||"Dr. Adriano Fabri Domingues")}</b><br><span style="color:${MUT};font-size:8.5pt">${esc(cfg.especialidade||"")}</span></div></td></tr></table>
+  </div>`;
+}
+async function abrirRelatorio(it){
+  $("rel").hidden=false; $("rel-msg").textContent=""; $("rel-page").innerHTML=`<div style="padding:40px;text-align:center;color:#7a6f5f">Montando…</div>`;
+  const lg=await carregarLogo(), body=htmlPdf(it,lg), quando=(it.resp&&it.resp.enviadoEm||"").slice(0,10);
+  relAtual={token:it.token,nome:`${quando} – Pré-Consulta – ${titulo(it.nome)}`,html:`<!DOCTYPE html><html><head><meta charset="utf-8"><style>@page{size:A4;margin:12mm}body{margin:0}</style></head><body>${body}</body></html>`};
+  $("rel-page").innerHTML=body;
+}
+$("rel-close").addEventListener("click",()=>{$("rel").hidden=true;relAtual=null});
+$("rel-print").addEventListener("click",()=>window.print());
+$("rel-drive").addEventListener("click",async()=>{
+  if(!relAtual) return; const b=$("rel-drive"); b.disabled=true; $("rel-msg").textContent="Gerando PDF no Drive…";
+  try{const r=await chamar("gerarPdf",relAtual);$("rel-msg").innerHTML=`PDF salvo na pasta do paciente: <a href="${esc(r.download)}">baixar</a> · <a href="${esc(r.url)}">abrir</a>${r.pasta?` · <a href="${esc(r.pasta)}">pasta</a>`:""}`;
+    const it=itens.find(x=>x.token===relAtual.token); if(it){it.pdf=r.url;if(r.pasta)it.pasta=r.pasta}}
+  catch(e){$("rel-msg").textContent="Não foi possível gerar o PDF: "+txtErro(e)}
+  b.disabled=false;
+});
+
+atualizar().then(carregarLogo);
+setInterval(()=>{if(document.visibilityState==="visible"&&$("rel").hidden&&!pront&&!confirmando) atualizar(true)},60000);
+</script>
+</body>
+</html>
