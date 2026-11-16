@@ -245,7 +245,7 @@ function totais(ym){
   const rec=doMes.filter(l=>l.tipo==="Receita"), desp=doMes.filter(l=>l.tipo==="Despesa");
   const s=(a,k)=>r2(a.reduce((t,l)=>t+(l[k]||0),0));
   const hon=rec.filter(l=>l.sub==="Honorário mensal"), ext=rec.filter(l=>l.sub!=="Honorário mensal");
-  const bruta=s(rec,"bruto"), imp=s(rec,"imposto"), liq=r2(bruta-imp), d=s(desp,"bruto");
+  const darf=desp.filter(l=>l.categoria==="DARF (imposto PJ)"), outras=desp.filter(l=>l.categoria!=="DARF (imposto PJ)"); const bruta=s(rec,"bruto"), imp=r2(s(rec,"imposto")+s(darf,"bruto")), liq=r2(bruta-imp), d=s(outras,"bruto");
   return {doMes,rec,desp,hon,ext,honB:s(hon,"bruto"),extB:s(ext,"bruto"),bruta,imp,liq,totDesp:d,res:r2(liq-d)};
 }
 function barras(grupos,cor){
