@@ -199,7 +199,7 @@ function setTipo(t){
 }
 $("tipo").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setTipo(b.dataset.t)});
 const honorario=()=>$("f-sub").value==="Honorário mensal";
-function aliqAtual(){if(!honorario())return {regime:"PF",aliquota:0};return cfg.fontes.find(f=>f.nome===$("f-fonte").value)||{regime:"—",aliquota:0}}
+function aliqAtual(){if(!honorario())return {regime:"PF",aliquota:0};const f=cfg.fontes.find(f=>f.nome===$("f-fonte").value)||{regime:"—",aliquota:0};return {regime:f.regime,aliquota:0}}
 function calc(){
   const rec=tipo==="Receita";
   $("l-fonte").hidden=!(rec&&honorario()); $("l-local").hidden=!(rec&&!honorario());
@@ -311,7 +311,7 @@ function render(){
   $("k-ext").textContent=brl(T.extB);
   $("k-extq").textContent=`${T.ext.length} plantão${T.ext.length===1?"":"ões"}`;
   $("k-imp").textContent=brl(T.imp);
-  $("k-impp").textContent=T.bruta?pct(T.imp/T.bruta)+" da receita":"PJ 6% · PF 0%";
+  $("k-impp").textContent=T.br"Impostos pagos por DARF".bruta)+" da receita":"PJ 6% · PF 0%";
   $("k-liq").textContent=brl(T.liq);
   $("k-bruta").textContent="Bruta "+brl(T.bruta);
   $("k-desp").textContent=brl(T.totDesp);
