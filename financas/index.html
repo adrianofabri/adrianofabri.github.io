@@ -315,7 +315,7 @@ function render(){
   $("k-liq").textContent=brl(T.liq);
   $("k-bruta").textContent="Bruta "+brl(T.bruta);
   $("k-desp").textContent=brl(T.totDesp);
-  $("k-despq").textContent=`${T.desp.length} lançamento${T.desp.length===1?"":"s"}`;
+  $("k-despq").textContent=`${T.desp.filter(l=>l.categoria!=="DARF (imposto PJ)").length} lançamento${T.desp.filter(l=>l.categoria!=="DARF (imposto PJ)").length===1?"":"s"}`;
   $("k-res").textContent=brl(T.res); $("k-res").className="n "+(T.res<0?"neg":T.res>0?"pos":"");
   const dif=r2(T.res-A.res);
   $("k-marg").textContent=(T.liq?`Guardou ${pct(T.res/T.liq)}`:"Sem receitas")+(A.doMes.length?` · ${dif>=0?"+":"−"}${brl(Math.abs(dif))} vs. ${MESES[Number(mesMove(mes,-1).slice(5))-1]}`:"");
