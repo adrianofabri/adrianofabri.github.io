@@ -179,7 +179,7 @@ function alertBanner(t){$("banner").textContent=t;$("banner").hidden=false}
 /* ---------- formulário ---------- */
 function montarSelects(){
   const fs=$("f-fonte").value, cs=$("f-cat").value, ps=$("f-forma").value;
-  $("f-fonte").innerHTML=cfg.fontes.map(f=>`<option value="${esc(f.nome)}">${esc(f.nome)} (${esc(f.regime)} ${pct0(f.aliquota)})</option>`).join("");
+  $("f-fonte").innerHTML=cfg.fontes.map(f=>`<option value="${esc(f.nome)}">${esc(f.nome)} (${esc(f.regime)})</option>`).join("");
   if(cfg.fontes.some(f=>f.nome===fs)) $("f-fonte").value=fs;
   $("f-cat").innerHTML=`<option value="">Selecione…</option>`+cfg.categorias.map(c=>`<option>${esc(c)}</option>`).join("");
   if(cfg.categorias.includes(cs)) $("f-cat").value=cs;
@@ -205,7 +205,7 @@ function calc(){
   $("l-fonte").hidden=!(rec&&honorario()); $("l-local").hidden=!(rec&&!honorario());
   if(!rec){$("f-liq").innerHTML="";return}
   const v=num($("f-valor").value), a=aliqAtual(), imp=v?r2(v*a.aliquota):0;
-  $("f-liq").innerHTML=v?`Imposto ${a.regime} ${pct0(a.aliquota)}: <b class="neg">${brl(imp)}</b> · Líquido: <b>${brl(v-imp)}</b>`:`<span style="color:var(--muted)">${honorario()?`Regime ${esc(a.regime)} · imposto ${pct0(a.aliquota)}`:"Plantão extra · PF à vista · imposto 0%"}</span>`;
+  $("f-liq").innerHTML=v?`Regime ${a.regime} · Líquido: <b>${brl(v-imp)}</b>`:`<span style="color:var(--muted)">${honorario()?`Regime ${esc(a.regime)}`:"Plantão extra · PF à vista · imposto 0%"}</span>`;
 }
 ["f-valor","f-sub","f-fonte"].forEach(id=>$(id).addEventListener("input",calc));
 $("f-sub").addEventListener("change",calc);
@@ -276,7 +276,7 @@ function renderFontes(T){
   const linhas=cfg.fontes.map(f=>{
     const ls=T.hon.filter(l=>l.fonte===f.nome), b=r2(ls.reduce((t,l)=>t+l.bruto,0)), lq=r2(ls.reduce((t,l)=>t+l.liquido,0));
     if(ls.length) rec++; else pend++;
-    return `<div class="fx-it"><span>${esc(f.nome)}<span class="s">${esc(f.regime)} · imposto ${pct0(f.aliquota)}${ls.length?` · bruto ${brl(b)}`:""}</span></span><span class="v">${ls.length?brl(lq):"–"}</span>
+    return `<div class="fx-it"><span>${esc(f.nome)}<span class="s">${esc(f.regime)}${ls.length?` · bruto ${brl(b)}`:""}</span></span><span class="v">${ls.length?brl(lq):"–"}</span>
       ${ls.length?`<span class="st ok">recebido</span>`:`<span class="st pend">a receber</span>`}</div>`}).join("");
   const ext=`<div class="fx-it"><span>Plantões extras<span class="s">PF · à vista · ${T.ext.length} plantão${T.ext.length===1?"":"ões"} no mês</span></span><span class="v">${brl(T.extB)}</span><span class="st neu">PF 0%</span></div>`;
   $("fx-lista").innerHTML=(linhas||`<p class="hint" style="margin:0">Cadastre as fontes pagadoras na aba Config da planilha.</p>`)+ext;
