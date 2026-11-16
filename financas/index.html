@@ -311,7 +311,7 @@ function render(){
   $("k-ext").textContent=brl(T.extB);
   $("k-extq").textContent=`${T.ext.length} plantão${T.ext.length===1?"":"ões"}`;
   $("k-imp").textContent=brl(T.imp);
-  $("k-impp").textContent=T.br"Impostos pagos por DARF".bruta)+" da receita":"PJ 6% · PF 0%";
+  $("k-impp").textContent=T.bruta?pct(T.imp/T.bruta)+" da receita":"Impostos pagos por DARF";
   $("k-liq").textContent=brl(T.liq);
   $("k-bruta").textContent="Bruta "+brl(T.bruta);
   $("k-desp").textContent=brl(T.totDesp);
