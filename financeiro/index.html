@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light only">
+<title>Financeiro do Consultório</title>
+<style>body{margin:0;background:#f7f2ea;color:#7a7163;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh}#ld{text-align:center;font-size:15px}#ld a{color:#8a6f2e}</style>
+</head>
+<body>
+<div id="ld">Carregando Financeiro do Consultório…</div>
+<script>
+(function () {
+  var U = "https://script.google.com/macros/s/AKfycbygddoJAd8999ZiCOQsWjvPLWbfcLI9PCCHrNWSpUcQTe3D9XU_kqGxt5gc_I21vgmW/exec?src=paKeo3hTAskOxyK6&f=Index";
+  function erro() { document.getElementById("ld").innerHTML = 'Não foi possível carregar o aplicativo.<br><a href="">Tentar de novo</a>'; }
+  fetch(U, { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(); return r.text(); }).then(function (h) {
+    if (h.indexOf("<html") < 0) throw new Error();
+    h = h.replace(/<meta charset="utf-8"\s*\/?>/i, function (m) { return m + '\n<meta name="robots" content="noindex,nofollow">\n<script src="api.js?v=1"><\/script>'; });
+    document.open(); document.write(h); document.close();
+  }).catch(erro);
+})();
+</script>
+</body>
+</html>
