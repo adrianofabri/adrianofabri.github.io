@@ -130,3 +130,20 @@ body:not(.locked) .lock{display:none}
 .rodape .acoes{display:flex;gap:14px}
 .rodape .acoes button{border:0;background:none;color:var(--accent);font:600 .75rem var(--f-body);cursor:pointer;padding:0;text-decoration:underline}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Tema escuro MedTech (tons da Prescrição Metabólica). Só na tela; impressão continua clara. */
+.tema-btn{position:absolute;top:10px;right:12px;border:1px solid var(--line);background:var(--surface);color:var(--accent);font:600 .78rem var(--f-body);padding:6px 10px;border-radius:8px;cursor:pointer}
+.tema-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.topo{position:relative}
+@media print{.tema-btn{display:none}}
+@media screen{
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111318; --surface:#1C2026; --ink:#F7F6F2; --muted:#B4BAC4; --line:#4A505A;
+  --accent:#C5A46D; --accent-ink:#111318; --accent-soft:#2D2A24; --gold:#AD863B; --gold-2:#C5A46D; --thead:#2A2E35; --zebra:#181B20;
+  --band:#1C2026; --band-ink:#C5A46D;
+  --ok:#9FD3AC; --ok-soft:#1F3326; --warn:#F3CF85; --warn-soft:#3A3020; --late:#F2A6A0; --late-soft:#3A2224; --neu:#C4C8CE; --neu-soft:#2A2E35;
+}
+:root[data-theme="dark"] .topo .nome{background:linear-gradient(90deg,#C5A46D,#F7E09F 50%,#C5A46D);-webkit-background-clip:text;background-clip:text}
+:root[data-theme="dark"] .tabs button[aria-pressed="true"]{box-shadow:0 1px 2px rgba(0,0,0,.4)}
+}

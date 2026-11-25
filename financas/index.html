@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="color-scheme" content="light only">
+<meta name="color-scheme" content="light dark">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,7 +13,8 @@
 <link rel="apple-touch-icon" href="icone.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="app.css?v=2">
+<script>try{var t=localStorage.getItem("medtech-theme");if(t!=="light"&&(t==="dark"||matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
 <body class="locked">
 
@@ -35,6 +36,7 @@
 </div>
 
 <header class="topo">
+  <button class="tema-btn" id="tema-btn" type="button">Modo escuro</button>
   <img alt="Logomarca Adriano Fabri Domingues" src="logo.png">
   <p class="nome">Adriano Fabri Domingues</p>
   <p class="tit">Financeiro Pessoal</p>
@@ -401,6 +403,12 @@ document.addEventListener("visibilitychange",()=>{
 });
 (function(){let k="";try{k=sessionStorage.getItem("gfs_k")||""}catch(e){}
   if(k){senha=k;document.body.classList.remove("locked");atualizar()}})();
+</script>
+<script>
+(function(){var b=document.getElementById("tema-btn"),r=document.documentElement,m=document.querySelector('meta[name="theme-color"]');
+function ap(d){if(d)r.setAttribute("data-theme","dark");else r.removeAttribute("data-theme");b.textContent=d?"Modo claro":"Modo escuro";b.setAttribute("aria-pressed",d?"true":"false");if(m)m.setAttribute("content",d?"#111318":"#f7f2ea")}
+ap(r.getAttribute("data-theme")==="dark");
+b.addEventListener("click",function(){var d=r.getAttribute("data-theme")!=="dark";ap(d);try{localStorage.setItem("medtech-theme",d?"dark":"light")}catch(e){}})})();
 </script>
 </body>
 </html>
