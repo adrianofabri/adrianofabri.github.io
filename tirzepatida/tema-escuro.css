@@ -1,0 +1,21 @@
+/* Tema escuro MedTech — mesmos tons da Prescrição Metabólica.
+   Injetado pela casca do GitHub; só troca os tokens de cor do modo escuro já existente no app.
+   Seletor html:root tem especificidade maior que :root do app, então vence independente da ordem. */
+@media screen{
+html:root[data-theme="dark"]{
+  --bg:#111318; --surface:#1C2026; --surface2:#23272E; --ink:#F7F6F2; --muted:#B4BAC4; --line:#343941;
+  --accent:#C5A46D; --accent-ink:#111318; --accent-soft:#2D2A24; --gold:#C5A46D; --cint:#9CC3B4;
+  --ok:#9FD3AC; --ok-soft:#1F3326; --warn:#F3CF85; --warn-soft:#3A3020; --late:#F2A6A0; --late-soft:#3A2224;
+  color-scheme:dark}
+}
+/* Tela de senha (api.js) no modo escuro */
+@media screen{
+html[data-theme="dark"] #tz-acesso{background:#111318!important;color:#F7F6F2!important}
+html[data-theme="dark"] #tz-acesso .cx{background:#1C2026!important;border-color:#343941!important;box-shadow:0 10px 40px rgba(0,0,0,.45)!important}
+html[data-theme="dark"] #tz-acesso h1{color:#F7F6F2!important}
+html[data-theme="dark"] #tz-acesso p.s,html[data-theme="dark"] #tz-acesso label{color:#B4BAC4!important}
+html[data-theme="dark"] #tz-acesso input[type=password]{background:#23272E!important;color:#F7F6F2!important;border-color:#6B727D!important}
+html[data-theme="dark"] #tz-acesso input:focus{outline-color:#C5A46D!important}
+html[data-theme="dark"] #tz-acesso button{background:#C5A46D!important;color:#111318!important}
+html[data-theme="dark"] #tz-acesso .m{color:#F2A6A0!important}
+}
