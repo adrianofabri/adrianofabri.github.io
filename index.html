@@ -197,12 +197,20 @@ footer b{color:var(--ink);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 .theme-btn{position:absolute;top:12px;right:12px;z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:var(--surface);color:var(--accent);cursor:pointer;display:grid;place-items:center;font-size:18px;line-height:1;box-shadow:var(--sh)}
 .theme-btn:hover{background:var(--accent-soft)}
-html[data-theme="dark"]{color-scheme:dark;--bg:#171410;--surface:#221e18;--surface2:#1d1a15;--ink:#f1eadc;--muted:#a79d8a;--line:#3a332a;--line2:#4a4136;--accent:#d9b56a;--accent-d:#e6c886;--accent-soft:#2e2718;--gold:#c9a352;--gold-l:#6b5a33;--ok:#5fbf8a;--ok-soft:#1d3327;--info:#7fb0dd;--info-soft:#1c2a38;--warn:#e7b35a;--warn-soft:#3a2d12;--sh:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);--sh-h:0 2px 4px rgba(0,0,0,.35),0 12px 32px rgba(0,0,0,.4)}
+/* Tema escuro MedTech (mesmos tons da Prescrição Metabólica: grafite #111318 / #1C2026, texto #F7F6F2, dourado #C5A46D) */
+html[data-theme="dark"]{color-scheme:dark;--bg:#111318;--surface:#1C2026;--surface2:#23272E;--ink:#F7F6F2;--muted:#B4BAC4;--line:#343941;--line2:#4A505A;--accent:#C5A46D;--accent-d:#D8BC8A;--accent-soft:#2D2A24;--gold:#AD863B;--gold-l:#6E5D3F;--ok:#9FD3AC;--ok-soft:#1F3326;--info:#A9C7E2;--info-soft:#1E2B38;--warn:#F3CF85;--warn-soft:#3A3020;--sh:0 1px 2px rgba(0,0,0,.35),0 6px 20px rgba(0,0,0,.28);--sh-h:0 2px 4px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.45)}
 html[data-theme="dark"] body{background:var(--bg)}
-html[data-theme="dark"] .hero{background:linear-gradient(135deg,#2a241b 0%,#1f1a14 100%)}
-html[data-theme="dark"] .cartao{background:linear-gradient(135deg,#2a241b 0%,#1f1a14 100%)}
-html[data-theme="dark"] .hero img{background:#2a241b}
+html[data-theme="dark"] .hero,html[data-theme="dark"] .cartao{background:linear-gradient(135deg,#1C2026 0%,#15181D 100%)}
+html[data-theme="dark"] .hero img{background:#1C2026}
 html[data-theme="dark"] .envio input{background:var(--surface2)}
+html[data-theme="dark"] .envio input::placeholder{color:#8A919C}
+html[data-theme="dark"] .btn:not(.ghost),html[data-theme="dark"] .fluxo li::before,html[data-theme="dark"] .dias input:checked+span{color:#111318}
+html[data-theme="dark"] .t-free{border-color:#2F5A3C}
+html[data-theme="dark"] .t-google{border-color:#34506B}
+html[data-theme="dark"] .t-pin{border-color:#5E4E2C}
+html[data-theme="dark"] .aj-nota.err{color:#F2A6A0}
+html[data-theme="dark"] .toast{background:#F7F6F2;color:#111318}
+html[data-theme="dark"] .veu{background:rgba(0,0,0,.55)}
 </style>
 <script>try{var t=localStorage.getItem("central-tema");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
@@ -454,7 +462,7 @@ html[data-theme="dark"] .envio input{background:var(--surface2)}
 </script>
 <script>
 (function(){var b=document.getElementById("theme-toggle");if(!b)return;
-function apply(d){if(d)document.documentElement.setAttribute("data-theme","dark");else document.documentElement.removeAttribute("data-theme");b.textContent=d?"☀️":"🌙";b.title=d?"Modo claro":"Modo escuro";var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",d?"#171410":"#f6f3ee");}
+function apply(d){if(d)document.documentElement.setAttribute("data-theme","dark");else document.documentElement.removeAttribute("data-theme");b.textContent=d?"☀️":"🌙";b.title=d?"Modo claro":"Modo escuro";var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",d?"#111318":"#f6f3ee");}
 apply(document.documentElement.getAttribute("data-theme")==="dark");
 b.addEventListener("click",function(){var d=document.documentElement.getAttribute("data-theme")!=="dark";apply(d);try{localStorage.setItem("central-tema",d?"dark":"light")}catch(e){}});
 })();
