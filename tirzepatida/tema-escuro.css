@@ -19,3 +19,7 @@ html[data-theme="dark"] #tz-acesso input:focus{outline-color:#C5A46D!important}
 html[data-theme="dark"] #tz-acesso button{background:#C5A46D!important;color:#111318!important}
 html[data-theme="dark"] #tz-acesso .m{color:#F2A6A0!important}
 }
+/* Modo claro: fundo da página mais escuro para os cartões brancos se destacarem (não afeta o modo escuro) */
+@media screen{
+html:root:not([data-theme="dark"]){--bg:#E6DED0}
+}
