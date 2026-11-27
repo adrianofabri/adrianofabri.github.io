@@ -1,0 +1,4 @@
+/* Modo claro: fundo da página mais escuro para os cartões brancos se destacarem */
+@media screen{
+html:root{--bg:#E6DED0;--band:#E6DED0}
+}

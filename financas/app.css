@@ -1,9 +1,9 @@
 /* Gestão Financeira Simplificada — mesma linguagem visual do Financeiro do Consultório */
 :root{
   color-scheme:light;
-  --bg:#f7f2ea; --surface:#ffffff; --ink:#554d3f; --muted:#7a7163; --line:#e4dcc9;
+  --bg:#e6ded0; --surface:#ffffff; --ink:#554d3f; --muted:#7a7163; --line:#e4dcc9;
   --accent:#8a6f2e; --accent-ink:#ffffff; --accent-soft:#f3e7c9; --gold:#c9a84c; --gold-2:#a07833; --thead:#f3e7c9; --zebra:#faf7f0;
-  --band:#f7f2ea; --band-ink:#a07833;
+  --band:#e6ded0; --band-ink:#a07833;
   --ok:#3f6b2c; --ok-soft:#e4efe0; --warn:#9a6b12; --warn-soft:#fbf1d8; --late:#a5301f; --late-soft:#f7e0dc; --neu:#5a5a5a; --neu-soft:#eeeae0;
   --f-display:"Montserrat",Arial,sans-serif; --f-body:"Instrument Sans",Arial,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
 }
