@@ -212,9 +212,30 @@ html[data-theme="dark"] .aj-nota.err{color:#F2A6A0}
 html[data-theme="dark"] .toast{background:#F7F6F2;color:#111318}
 html[data-theme="dark"] .veu{background:rgba(0,0,0,.55)}
 </style>
+<script>try{if(sessionStorage.getItem("central-ok")!=="1")document.documentElement.setAttribute("data-lock","1")}catch(e){document.documentElement.setAttribute("data-lock","1")}</script>
 <script>try{var t=localStorage.getItem("central-tema");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<style id="gate-css">
+html[data-lock="1"] body>*:not(#gate):not(script):not(style){display:none!important}
+#gate{display:none;position:fixed;inset:0;z-index:9999;overflow:auto;background:#3b3a3a}
+html[data-lock="1"] #gate{display:block}
+.gate-bg{position:fixed;inset:-30px;background:url("central-acesso.jpg") center/cover no-repeat;filter:blur(26px)}
+.gate-stage{position:relative;width:min(100vw,calc(100dvh*1672/941));aspect-ratio:1672/941;margin:0 auto;background:url("central-acesso.jpg") center/100% 100% no-repeat;top:max(0px,calc((100dvh - min(100vw,calc(100dvh*1672/941))*941/1672)/2))}
+.gate-in{position:absolute;left:33.6%;width:32.8%;top:64.2%;height:6.4%;border:0;border-radius:999px;padding:0 6%;font:inherit;font-size:clamp(13px,1.6vw,22px);color:#fff;background:#6d6968;outline:2px solid transparent;box-sizing:border-box}
+.gate-in:focus{outline-color:#c9a45c}
+.gate-btn{position:absolute;left:33.6%;width:32.8%;top:73.5%;height:6.7%;border:0;border-radius:999px;background:transparent;cursor:pointer;font-size:0}
+.gate-msg{position:absolute;left:25%;width:50%;top:81.8%;text-shadow:0 1px 3px #000;text-align:center;font-size:clamp(12px,1.3vw,18px);color:#f0d9a0;min-height:1.4em}
+@media (max-aspect-ratio:1/1){.gate-stage{width:170vw;margin-left:-35vw;top:calc((100dvh - 170vw*941/1672)/2)}.gate-in{font-size:max(15px,2.6vw)}.gate-msg{left:20%;width:60%;font-size:max(13px,2.4vw)}}
+</style>
 </head>
 <body>
+<section id="gate" aria-label="Acesso restrito">
+  <div class="gate-bg" aria-hidden="true"></div>
+  <div class="gate-stage" role="img" aria-label="Central de Aplicativos, Dr. Adriano Fabri Domingues. Acesso restrito.">
+    <form id="gate-form" autocomplete="off"><input id="gate-pass" class="gate-in" type="password" inputmode="numeric" autocomplete="off" aria-label="Senha" placeholder="Senha"><button class="gate-btn" type="submit" aria-label="Entrar">Entrar</button></form>
+    <div class="gate-msg" id="gate-msg" aria-live="polite"></div>
+  </div>
+</section>
+
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-recep" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
   <symbol id="i-painel" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></symbol>
@@ -487,6 +508,25 @@ html[data-theme="dark"] .veu{background:rgba(0,0,0,.55)}
 function apply(d){if(d)document.documentElement.setAttribute("data-theme","dark");else document.documentElement.removeAttribute("data-theme");b.textContent=d?"☀️":"🌙";b.title=d?"Modo claro":"Modo escuro";var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",d?"#111318":"#f6f3ee");}
 apply(document.documentElement.getAttribute("data-theme")==="dark");
 b.addEventListener("click",function(){var d=document.documentElement.getAttribute("data-theme")!=="dark";apply(d);try{localStorage.setItem("central-tema",d?"dark":"light")}catch(e){}});
+})();
+</script>
+<script>
+(function(){
+  var HASH="f97de99b354da4e4cc62a3b60b3f01388b59cb8e3ea27561b9eafe5f0fe6151b", SALT="central-medtech-v1:", tent=0, trava=0;
+  var f=document.getElementById("gate-form"), p=document.getElementById("gate-pass"), m=document.getElementById("gate-msg");
+  function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return ("0"+b.toString(16)).slice(-2)}).join("")}
+  function liberar(){try{sessionStorage.setItem("central-ok","1")}catch(e){} document.documentElement.removeAttribute("data-lock"); p.value=""}
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    if(Date.now()<trava){m.textContent="Aguarde alguns segundos e tente de novo.";return}
+    var v=String(p.value||"").trim(); if(!v){m.textContent="Digite a senha.";p.focus();return}
+    if(!window.crypto||!crypto.subtle){m.textContent="Navegador sem suporte. Use Safari ou Chrome atualizados.";return}
+    crypto.subtle.digest("SHA-256",new TextEncoder().encode(SALT+v)).then(function(d){
+      if(hex(d)===HASH){m.textContent="";liberar()}
+      else{tent++;p.value="";m.textContent="Senha incorreta.";if(tent>=5){trava=Date.now()+30000;tent=0;m.textContent="Muitas tentativas. Aguarde 30 segundos."}p.focus()}
+    });
+  });
+  if(document.documentElement.getAttribute("data-lock")==="1")setTimeout(function(){try{p.focus()}catch(e){}},300);
 })();
 </script>
 </body>
