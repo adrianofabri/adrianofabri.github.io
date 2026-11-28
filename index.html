@@ -282,7 +282,7 @@ html[data-lock="1"] #gate{display:block}
   <div class="ic"><svg class="i"><use href="#i-cartao"/></svg></div>
   <div class="tx"><span class="eyebrow">Cartão de visita digital</span><h2 id="s-cartao">Dr. Adriano Fabri Domingues</h2><p>Envie para pacientes e contatos: contato, endereço e redes em um só link.</p></div>
   <div class="btns">
-    <a class="btn ghost" href="https://adrianofabri.github.io/cartao-dr-adriano/" target="_blank" rel="noopener">Abrir</a>
+    <a class="btn ghost" href="https://adrianofabri.app/" target="_blank" rel="noopener">Abrir</a>
     <button class="btn" id="sh-cartao" type="button"><svg class="i"><use href="#i-share"/></svg>Compartilhar</button>
     <a class="btn ghost" id="wa-cartao" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp</a>
     <button class="btn ghost" id="cp-cartao" type="button"><svg class="i"><use href="#i-copia"/></svg><span>Copiar link</span></button>
@@ -443,7 +443,7 @@ html[data-lock="1"] #gate{display:block}
   };
 
   /* cartão digital: compartilhar */
-  var urlC="https://adrianofabri.github.io/cartao-dr-adriano/",txtC="Cartão digital do Dr. Adriano Fabri Domingues · Nutrologia ";
+  var urlC="https://adrianofabri.app/",txtC="Cartão digital do Dr. Adriano Fabri Domingues · Nutrologia ";
   $("wa-cartao").href="https://wa.me/?text="+encodeURIComponent(txtC+urlC);
   function copiarC(btn){
     function ok(){toast("Link do cartão copiado");if(btn){var s=btn.querySelector("span");if(s){s.textContent="Copiado ✓";setTimeout(function(){s.textContent="Copiar link"},1800)}}}
