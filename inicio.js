@@ -15,6 +15,7 @@
     var a = document.createElement("a");
     a.id = "central-inicio";
     a.href = "/";
+    a.target = "_self"; a.removeAttribute("rel");
     a.title = "Início (Central de Aplicativos)";
     a.setAttribute("aria-label", "Voltar à Central de Aplicativos");
     a.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>';
