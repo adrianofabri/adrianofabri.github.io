@@ -16,7 +16,7 @@
   function erro() { document.getElementById("ld").innerHTML = 'Não foi possível carregar o aplicativo.<br><a href="">Tentar de novo</a>'; }
   fetch(U, { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(); return r.text(); }).then(function (h) {
     if (h.indexOf("<html") < 0) throw new Error();
-    h = h.replace(/<meta charset="utf-8"\s*\/?>/i, function (m) { return m + '\n<meta name="robots" content="noindex,nofollow">\n<script src="api.js?v=1"><\/script>\n<link rel="stylesheet" href="tema-claro.css?v=1">'; });
+    h = h.replace(/<meta charset="utf-8"\s*\/?>/i, function (m) { return m + '\n<meta name="robots" content="noindex,nofollow">\n<script src="api.js?v=1"><\/script>\n<script src="/inicio.js?v=1" defer><\/script>\n<link rel="stylesheet" href="tema-claro.css?v=1">'; });
     document.open(); document.write(h); document.close();
   }).catch(erro);
 })();
