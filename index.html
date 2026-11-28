@@ -212,7 +212,7 @@ html[data-theme="dark"] .aj-nota.err{color:#F2A6A0}
 html[data-theme="dark"] .toast{background:#F7F6F2;color:#111318}
 html[data-theme="dark"] .veu{background:rgba(0,0,0,.55)}
 </style>
-<script>try{if(sessionStorage.getItem("central-ok")!=="1")document.documentElement.setAttribute("data-lock","1")}catch(e){document.documentElement.setAttribute("data-lock","1")}</script>
+<script>try{var ok=sessionStorage.getItem("central-ok")==="1";if(!ok){var ts=+localStorage.getItem("central-ok-ts")||0;if(Date.now()-ts<43200000&&ts<=Date.now()+60000){ok=true;sessionStorage.setItem("central-ok","1")}}if(!ok)document.documentElement.setAttribute("data-lock","1")}catch(e){document.documentElement.setAttribute("data-lock","1")}</script>
 <script>try{var t=localStorage.getItem("central-tema");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 <style id="gate-css">
 html[data-lock="1"] body>*:not(#gate):not(script):not(style){display:none!important}
@@ -515,7 +515,7 @@ b.addEventListener("click",function(){var d=document.documentElement.getAttribut
   var HASH="f97de99b354da4e4cc62a3b60b3f01388b59cb8e3ea27561b9eafe5f0fe6151b", SALT="central-medtech-v1:", tent=0, trava=0;
   var f=document.getElementById("gate-form"), p=document.getElementById("gate-pass"), m=document.getElementById("gate-msg");
   function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return ("0"+b.toString(16)).slice(-2)}).join("")}
-  function liberar(){try{sessionStorage.setItem("central-ok","1")}catch(e){} document.documentElement.removeAttribute("data-lock"); p.value=""}
+  function liberar(){try{sessionStorage.setItem("central-ok","1");localStorage.setItem("central-ok-ts",String(Date.now()))}catch(e){} document.documentElement.removeAttribute("data-lock"); p.value=""}
   f.addEventListener("submit",function(e){
     e.preventDefault();
     if(Date.now()<trava){m.textContent="Aguarde alguns segundos e tente de novo.";return}
